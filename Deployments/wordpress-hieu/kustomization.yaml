@@ -1,0 +1,11 @@
+secretGenerator:
+  - name: db-user-pass
+    literals:
+      - db_username=${{ secrets.wp_db_user }}
+      - db_password=${{ secrets.wp_db_pass }}
+resources:
+  - 010-Namespace.yaml
+  - 020-Issuer.yaml
+  - 021-Cert.yaml
+  - 030-Volumes.yaml
+  - 040-Deployment.yaml

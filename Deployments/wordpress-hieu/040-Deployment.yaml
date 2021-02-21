@@ -13,11 +13,11 @@ spec:
     type: Recreate
   selector:
     matchLabels:
-      app: wordpress
+      app: mysql
   template:
     metadata:
       labels:
-        app: wordpress
+        app: mysql-app
     spec:
       containers:
         - image: mysql:latest

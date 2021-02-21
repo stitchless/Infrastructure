@@ -9,3 +9,5 @@ resources:
   - 021-Cert.yaml
   - 030-Volumes.yaml
   - 040-Deployment.yaml
+  - 050-Service.yaml
+  - 060-Ingress.yaml

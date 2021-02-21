@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: adguard-volume
+  namespace: adguard
+  labels:
+    name: adguard-volume
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  local:
+    # Edit this to be an actual path on your server's filesystem
+    path: /host/folder/path
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - hostname # Edit this to be an actual kubernetes name of your server
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: adguard-volume-claim
+  namespace: adguard
+spec:
+  selector:
+    matchLabels:
+      name: adguard-volume
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+    limits:
+      storage: 10Gi

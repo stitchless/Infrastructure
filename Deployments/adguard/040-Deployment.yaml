@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard-server
+  namespace: adguard
+  labels:
+    app: adguard-server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: adguard-server
+  template:
+    metadata:
+      labels:
+        app: adguard-server
+    spec:
+      volumes:
+        - name: adguard-data
+          persistentVolumeClaim:
+            claimName: adguard-volume-claim
+      containers:
+        - name: adguard-server
+          image: adguard/adguardhome:latest
+          ports:
+            - containerPort: 53
+            - containerPort: 67
+            - containerPort: 68
+            - containerPort: 80
+            - containerPort: 443
+            - containerPort: 853
+            - containerPort: 3000
+          volumeMounts:
+            - name: adguard-data
+              subPath: work
+              mountPath: /opt/adguardhome/work
+            - name: adguard-data
+              subPath: conf
+              mountPath: /opt/adguardhome/conf

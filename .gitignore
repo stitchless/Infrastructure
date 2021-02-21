@@ -4,6 +4,7 @@
 # Clear all deployment directories except readme
 Deployments/*
 !Deployments/*.md
+!Deployments/adguard/
 
 # Clear all kickstart except hardcoded examples
 Kickstart/*

@@ -38,6 +38,6 @@ jobs:
       - name: deploy adguard
         uses: steebchen/kubectl@1.0.1
         env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
         with:
           args: apply -k ./deployments/wordpress

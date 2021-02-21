@@ -16,7 +16,7 @@
 
 <br>
 <br>
----
+
 ## **Requirements**
 Throughout this project I am using the latest stable tools I could find
 

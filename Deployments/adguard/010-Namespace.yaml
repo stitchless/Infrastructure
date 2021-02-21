@@ -3,4 +3,4 @@ kind: Namespace
 metadata:
   name: adguard
   labels:
-    cert-manager-tls: example-com
+    cert-manager-tls: nekomade-com

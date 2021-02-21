@@ -7,7 +7,7 @@ spec:
   # The secret name where cert-manager should store the signed certificate
   secretName: adguard-tls
   dnsNames:
-    - adguard.example.com
+    - ad.nekomade.com
   # Duation of the certificate
   duration: 168h
   # Renew a day before the certificate expiration

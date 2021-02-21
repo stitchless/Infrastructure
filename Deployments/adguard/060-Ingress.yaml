@@ -13,11 +13,11 @@ spec:
     # specifying a host in the TLS section will tell cert-manager what
     # DNS SANs should be on the created certificate.
     - hosts:
-        - adguard.example.com
+        - ad.nekomade.com
       # cert-manager will create this secret (Referenced from the cert that was previously created)
       secretName: adguard-tls
   rules:
-    - host: adguard.example.com
+    - host: ad.nekomade.com
       http:
         paths:
           - path: /

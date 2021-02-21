@@ -15,7 +15,7 @@ spec:
   storageClassName: local-storage
   local:
     # Edit this to be an actual path on your server's filesystem
-    path: /host/folder/path
+    path: /mnt/local-volumes/adguard
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -23,7 +23,7 @@ spec:
             - key: kubernetes.io/hostname
               operator: In
               values:
-                - hostname # Edit this to be an actual kubernetes name of your server
+                - nekomade # Edit this to be an actual kubernetes name of your server
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1

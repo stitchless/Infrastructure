@@ -1,0 +1,1 @@
+If you intend to use this area to store deployments you will need to first fork this repo, change it to private, then remove the ignore entry in gitignore

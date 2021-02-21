@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: service-key
+  namespace: cert-manager
+  annotations:
+    kubed.appscode.com/sync: "cert-manager-tls=example-com"
+type: Opaque
+# Required to be in base64 format
+# echo -n "yourKey" | base64 -w 0
+data:
+  key: |
+    YOUR_BASE64_KEY

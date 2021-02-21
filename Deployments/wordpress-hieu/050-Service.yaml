@@ -10,7 +10,7 @@ spec:
       protocol: UDP
       port: 3306
   selector:
-    app: mysql-app
+    app: mysql
 ---
 # Wordpress Service
 apiVersion: v1
@@ -29,4 +29,4 @@ spec:
       protocol: TCP
       port: 80
   selector:
-    app: wordpress-app
+    app: wordpress

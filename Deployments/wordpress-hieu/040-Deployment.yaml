@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       labels:
-        app: mysql-app
+        app: mysql
     spec:
       containers:
         - image: mysql:latest
@@ -58,7 +58,7 @@ spec:
   template:
     metadata:
       labels:
-        app: wordpress-app
+        app: wordpress
     spec:
       containers:
         - image: library/wordpress:5.6.1-apache

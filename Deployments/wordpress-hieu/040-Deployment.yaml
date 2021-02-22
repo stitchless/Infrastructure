@@ -76,7 +76,7 @@ spec:
             - name: WORDPRESS_DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: db-user-passs
+                  name: db-user-pass
                   key: db_username
           ports:
             - containerPort: 80

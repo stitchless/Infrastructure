@@ -28,6 +28,19 @@ spec:
                 secretKeyRef:
                   name: db-user-pass
                   key: db_password
+            - name: MYSQL_DATABASE
+              value: wordpress
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: db_username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: db_password
+
           ports:
             - containerPort: 3306
               name: mysql
@@ -66,11 +79,18 @@ spec:
           env:
             - name: WORDPRESS_DB_HOST
               value: wordpress-mysql
+            - name: WORDPRESS_DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: db_username
             - name: WORDPRESS_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: db-user-pass
                   key: db_password
+            - name: WORDPRESS_DB_NAME
+              value: wordpress
           ports:
             - containerPort: 80
               name: wordpress

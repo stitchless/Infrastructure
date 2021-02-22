@@ -32,7 +32,6 @@ jobs:
         env:
           wp_db_user: ${{ secrets.WP_DB_USER }}
           wp_db_pass: ${{ secrets.WP_DB_PASS }}
-          cf_api_token: ${{ secrets.CF_API_TOKEN }}
         run: |
           go run main.go
       # Deploy Wordpress

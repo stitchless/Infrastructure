@@ -403,6 +403,7 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: sub.example.com # Required | or example.com
     external-dns.alpha.kubernetes.io/ttl: "120" #optional
 spec:
+  type: LoadBalancer # required for service discovery
   ...
 ```
 

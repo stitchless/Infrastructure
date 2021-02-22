@@ -4,7 +4,6 @@ secretGenerator:
     literals:
       - db_username=${{ secrets.wp_db_user }}
       - db_password=${{ secrets.wp_db_pass }}
-      - cf_api_token=${{ secrets.cf_api_token }}
 resources:
   - 010-Namespace.yaml
   - 020-Issuer.yaml

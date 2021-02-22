@@ -23,6 +23,7 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: wp.nekomade.com
     external-dns.alpha.kubernetes.io/ttl: "120" #optional
 spec:
+  type: LoadBalancer
   ports:
     - name: wp
       port: 80

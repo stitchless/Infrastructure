@@ -1,5 +1,6 @@
 secretGenerator:
   - name: db-user-pass
+    namespace: hieu-wordpress
     literals:
       - db_username=${{ secrets.wp_db_user }}
       - db_password=${{ secrets.wp_db_pass }}

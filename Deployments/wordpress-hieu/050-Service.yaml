@@ -7,7 +7,6 @@ metadata:
 spec:
   ports:
     - name: mysql
-      protocol: UDP
       port: 3306
   selector:
     app: mysql
@@ -26,7 +25,6 @@ metadata:
 spec:
   ports:
     - name: wp
-      protocol: TCP
       port: 80
   selector:
     app: wordpress

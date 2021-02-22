@@ -32,11 +32,11 @@ spec:
             - containerPort: 3306
               name: mysql
           volumeMounts:
-            - name: wp-data
+            - name: mysql-data
               subPath: database
               mountPath: /var/www/html
       volumes:
-      - name: wp-data
+      - name: mysql-data
         persistentVolumeClaim:
           claimName: wp-volume-claim
 # Web app - Wordpress

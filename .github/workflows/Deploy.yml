@@ -32,6 +32,7 @@ jobs:
         env:
           wp_db_user: ${{ secrets.WP_DB_USER }}
           wp_db_pass: ${{ secrets.WP_DB_PASS }}
+          adguard_ip: ${{ secrets.ADGUARD_IP }}
         run: |
           go run main.go
       # Deploy Wordpress
@@ -40,4 +41,4 @@ jobs:
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         with:
-          args: apply -k ./Deployments/wordpress-hieu
+          args: apply -k ./Deployments

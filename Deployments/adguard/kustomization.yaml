@@ -1,0 +1,19 @@
+secretGenerator:
+  - name: adguard-secrets
+    namespace: adguard
+    literals:
+      - adguard_ip=${{ secrets.adguard_IP }}
+resources:
+  - 010-Namespace.yaml
+  - 020-Issuer.yaml
+  - 021-Cert.yaml
+  - 030-Volumes.yaml
+  - 040-Deployment.yaml
+  - 050-Service.yaml
+  - 060-Ingress.yaml
+patchesJson6902:
+  - target:
+      kind: Service
+      name: adguard-lb
+      version: 0.1.0
+    path: patch.yaml

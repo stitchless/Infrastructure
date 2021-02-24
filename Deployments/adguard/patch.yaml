@@ -1,0 +1,6 @@
+- op: replace
+  path: spec/loadBalancerIP
+  valueFrom:
+    secretKeyRef:
+      name: adguard-secrets
+      key: adguard_ip

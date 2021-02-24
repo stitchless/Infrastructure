@@ -20,12 +20,27 @@ func main() {
 		log.Fatal(err)
 	}
 
-	_ = filepath.Walk(filepath.Join(workingDir, targetDirectory), func(path string, info os.FileInfo, err error) error {
-		if err == nil && info.Name() == "kustomization.yaml" {
-			parseFile(path)
+	envVars, e := regexp.Compile(".+yaml$")
+	if e != nil {
+		log.Fatal(e)
+	}
+
+	e = filepath.Walk(filepath.Join(workingDir, targetDirectory), func(path string, info os.FileInfo, err error) error {
+		if err == nil && envVars.MatchString(info.Name()) {
+			// Run against all deployment files looking for a kustomization.yaml file
+			if info.Name() == "kustomization.yaml" {
+				parseFile(path)
+			}
+			// Run against entire kickstart directory that does not use a kustomization.yaml file
+			if targetDirectory == "Kickstart" {
+				parseFile(path)
+			}
 		}
 		return nil
 	})
+	if e != nil {
+		log.Fatal(e)
+	}
 }
 
 func parseFile(path string) {

@@ -20,6 +20,7 @@ metadata:
     app: wordpress
   namespace: hieu-wordpress
   annotations:
+    external-dns.alpha.kubernetes.io/hostname: wp.nekomade.com
     external-dns.alpha.kubernetes.io/ttl: "120"
 spec:
   type: LoadBalancer

@@ -9,7 +9,6 @@ metadata:
     cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
     kubernetes.io/ingress.class: public
     external-dns.alpha.kubernetes.io/hostname: wp.nekomade.com
-    external-dns.alpha.kubernetes.io/ttl: "120"
 spec:
   tls:
     # specifying a host in the TLS section will tell cert-manager what

@@ -19,8 +19,10 @@ metadata:
   labels:
     app: wordpress
   namespace: hieu-wordpress
+  annotations:
+    external-dns.alpha.kubernetes.io/ttl: "120"
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - name: wp
       port: 80

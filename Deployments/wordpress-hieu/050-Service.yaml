@@ -20,7 +20,7 @@ metadata:
     app: wordpress
   namespace: hieu-wordpress
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
     - name: wp
       port: 80

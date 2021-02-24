@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: cachet-volume
+  namespace: cachet
+  labels:
+    name: cachet-volume
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  local:
+    # Edit this to be an actual path on your server's filesystem
+    path: /mnt/local-volumes/cachet
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - nekomade # Edit this to be an actual kubernetes name of your server
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: cachet-volume-claim
+  namespace: cachet
+spec:
+  selector:
+    matchLabels:
+      name: cachet-volume
+  storageClassName: local-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+    limits:
+      storage: 10Gi

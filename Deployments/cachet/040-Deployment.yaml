@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cachet-server
+  namespace: cachet
+  labels:
+    app: cachet-server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cachet-server
+  template:
+    metadata:
+      labels:
+        app: cachet-server
+    spec:
+      volumes:
+        - name: cachet-data
+          persistentVolumeClaim:
+            claimName: cachet-volume-claim
+      containers:
+        - name: cachet-server
+          image: cachethq/docker:latest
+          env:
+            - name: DB_DRIVER
+              value: pgsql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_DATABASE
+              value: postgres
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: db_username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: db_password
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: cachet-data
+              subPath: work
+              mountPath: /opt/cachethome/work
+            - name: cachet-data
+              subPath: conf
+              mountPath: /opt/cachethome/conf
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cachet-database
+  namespace: cachet
+  labels:
+    app: cachet-database
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cachet-database
+  template:
+    metadata:
+      labels:
+        app: cachet-database
+    spec:
+      volumes:
+        - name: cachet-db-data
+          persistentVolumeClaim:
+            claimName: cachet-volume-claim
+      containers:
+        - name: cachet-database
+          image: postgres:latest
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: db_username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-user-pass
+                  key: db_password
+#          ports:
+#            - containerPort: 53
+          volumeMounts:
+            - name: cachet-db-data
+              subPath: data
+              mountPath: /var/lib/postgresql/data

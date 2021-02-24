@@ -1,0 +1,14 @@
+secretGenerator:
+  - name: db-user-pass
+    namespace: cachet
+    literals:
+      - db_username=${{ secrets.cachet_db_user }}
+      - db_password=${{ secrets.cachet_db_pass }}
+resources:
+  - 010-Namespace.yaml
+  - 020-Issuer.yaml
+  - 021-Cert.yaml
+  - 030-Volumes.yaml
+  - 040-Deployment.yaml
+  - 050-Service.yaml
+  - 060-Ingress.yaml

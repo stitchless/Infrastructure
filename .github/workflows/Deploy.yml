@@ -35,12 +35,10 @@ jobs:
           adguard_ip: ${{ secrets.ADGUARD_IP }}
         run: |
           go run main.go
-      # Deploy Wordpress
-      - name: Deploy Wordpress
+      # Deploy Adguard
+      - name: Deploy Adguard
         uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
         with:
-          args: |
-          apply -k ./Deployments/wordpress-hieu
-          apply -k ./Deployments/adguard
+          args: apply -k ./Deployments/adguard

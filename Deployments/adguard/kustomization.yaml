@@ -2,7 +2,7 @@ secretGenerator:
   - name: adguard-secrets
     namespace: adguard
     literals:
-      - adguard_ip=${{ secrets.adguard_IP }}
+      - adguard_ip=${{ secrets.adguard_ip }}
 resources:
   - 010-Namespace.yaml
   - 020-Issuer.yaml

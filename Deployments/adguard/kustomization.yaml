@@ -9,7 +9,7 @@ patchesJson6902:
   - target:
       kind: Service
       name: "adguard-lb"
-      version: V1
+      version: v1
     path: patch.yaml
 ---
 resources:

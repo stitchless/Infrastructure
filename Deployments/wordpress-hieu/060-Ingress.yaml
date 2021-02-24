@@ -8,7 +8,7 @@ metadata:
     cert-manager.io/issuer-kind: OriginIssuer
     cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
     external-dns.alpha.kubernetes.io/hostname: wp.nekomade.com
-#    external-dns.alpha.kubernetes.io/ttl: "120" #optional
+    external-dns.alpha.kubernetes.io/ttl: 120 #optional
 spec:
   tls:
     # specifying a host in the TLS section will tell cert-manager what

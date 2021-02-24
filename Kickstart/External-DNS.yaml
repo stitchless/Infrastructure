@@ -62,5 +62,5 @@ spec:
               value: ${{ secrets.cf_api_token }}
           resources:
             limits:
-              memory: "600Mi"
+              memory: "800Mi"
               cpu: "500m"

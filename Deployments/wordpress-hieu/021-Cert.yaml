@@ -2,13 +2,13 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: adguard-crt
-  namespace: adguard
+  namespace: hieu-wordpress
 spec:
   # The secret name where cert-manager should store the signed certificate
-  secretName: adguard-tls
+  secretName: nekomade-tls
   dnsNames:
-    - ad.nekomade.com
-  # Duation of the certificate
+    - wp.nekomade.com
+  # Duration of the certificate
   duration: 168h
   # Renew a day before the certificate expiration
   renewBefore: 24h

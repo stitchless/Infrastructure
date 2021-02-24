@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: adguard-ingress
-  namespace: adguard
+  name: wordpress-ingress
+  namespace: hieu-wordpress
   annotations:
     cert-manager.io/issuer: prod-issuer
     cert-manager.io/issuer-kind: OriginIssuer
@@ -13,17 +13,17 @@ spec:
     # specifying a host in the TLS section will tell cert-manager what
     # DNS SANs should be on the created certificate.
     - hosts:
-        - ad.nekomade.com
+        - wp.nekomade.com
       # cert-manager will create this secret (Referenced from the cert that was previously created)
-      secretName: adguard-tls
+      secretName: nekomade-tls
   rules:
-    - host: ad.nekomade.com
+    - host: wp.nekomade.com
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: adguard-lb
+                name: wordpress-service
                 port:
                   number: 80

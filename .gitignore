@@ -1,13 +1,8 @@
 # IDE
 .idea
 
-# Clear all deployment directories except readme
-Deployments/*
-!Deployments/*.md
-!Deployments/adguard/
-
 # Clear all kickstart except hardcoded examples
 Kickstart/*
 !Kickstart/External-DNS.yaml
 !Kickstart/Service-Key.yaml
-!Kickstart/Verify-Setup.yaml
+!Example/Verify-Setup.yaml

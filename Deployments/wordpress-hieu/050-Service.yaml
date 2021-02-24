@@ -1,0 +1,31 @@
+# wordpress database service
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-mysql
+  namespace: hieu-wordpress
+spec:
+  ports:
+    - name: mysql
+      port: 3306
+  selector:
+    app: mysql
+---
+# Wordpress Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+  labels:
+    app: wordpress
+  namespace: hieu-wordpress
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: wp.nekomade.com
+    external-dns.alpha.kubernetes.io/ttl: "120" #optional
+spec:
+  type: LoadBalancer
+  ports:
+    - name: wp
+      port: 80
+  selector:
+    app: wordpress

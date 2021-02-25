@@ -33,6 +33,8 @@ jobs:
           wp_db_user: ${{ secrets.WP_DB_USER }}
           wp_db_pass: ${{ secrets.WP_DB_PASS }}
           adguard_ip: ${{ secrets.ADGUARD_IP }}
+          cachet_db_user: ${{ secrets.CACHET_DB_USER }}
+          cachet_db_pass: ${{ secrets.CACHET_DB_PASS }}
         run: |
           go run main.go
       # Deploy Wordpress

@@ -11,6 +11,11 @@ patchesJson6902:
       name: "adguard-lb"
       version: v1
     path: patch.yaml
+  - target:
+      kind: Service
+      name: "adguard-lb-dns"
+      version: v1
+    path: patch.yaml
 ---
 resources:
   - 010-Namespace.yaml

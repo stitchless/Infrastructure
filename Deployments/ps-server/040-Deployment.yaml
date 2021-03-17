@@ -24,7 +24,7 @@ spec:
       containers:
         - name: ps-server
           image: localhost:5000/project-sharing-server:latest
-          imagePullPolicy: Never
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 22001
           volumeMounts:

@@ -1,3 +1,10 @@
+resources:
+  - 010-Namespace.yaml
+  - 020-Issuer.yaml
+  - 021-Cert.yaml
+  - 030-Volumes.yaml
+  - 040-Deployment.yaml
+---
 secretGenerator:
   - name: ps-server-secrets
     namespace: ps-server
@@ -13,9 +20,4 @@ patchesJson6902:
     path: patch.yaml
 ---
 resources:
-  - 010-Namespace.yaml
-  - 020-Issuer.yaml
-  - 021-Cert.yaml
-  - 030-Volumes.yaml
-  - 040-Deployment.yaml
   - 060-Ingress.yaml

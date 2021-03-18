@@ -1,0 +1,10 @@
+resources:
+  - 010-Namespace.yaml
+---
+secretGenerator:
+  - name: phonito-secrets
+    namespace: phonito
+    literals:
+      - phonito_api=${{ secrets.phonito_api }}
+resources:
+  - 020-Deployment.yaml

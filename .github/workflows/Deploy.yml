@@ -35,6 +35,7 @@ jobs:
           adguard_ip: ${{ secrets.ADGUARD_IP }}
           cachet_db_user: ${{ secrets.CACHET_DB_USER }}
           cachet_db_pass: ${{ secrets.CACHET_DB_PASS }}
+          phonito_api: ${{ secrets.PHONITO_API }}
         run: |
           go run main.go
       # Deploy Wordpress
@@ -51,10 +52,17 @@ jobs:
 #          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
 #        with:
 #          args: apply -k ./Deployments/adguard
-      # Deploy Adguard
-      - name: Deploy Adguard at Home
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-        with:
-          args: apply -k ./Deployments/ps-server
+      # Deploy Project Sharing Server
+#      - name: Deploy Vectorworks, Inc. Project Sharing Server
+#        uses: actions-hub/kubectl@master
+#        env:
+#          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+#        with:
+#          args: apply -k ./Deployments/ps-server
+      # Deploy Phonito Security
+      - name: Deploy Phonito Security
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      with:
+        args: apply -k ./Deployments/phonito

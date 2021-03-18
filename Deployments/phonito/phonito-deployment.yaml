@@ -1,0 +1,80 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  labels:
+    app: phonito-scanner
+  name: phonito-scanner
+  namespace: phonito
+spec:
+
+  selector:
+    matchLabels:
+      app: phonito-scanner
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: phonito-scanner
+      name: phonito-scanner
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: PHONITO_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: phonito-secrets
+                  key: phonito_api
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+          image: phonito/scanner
+          imagePullPolicy: Always
+          name: phonito-scanner
+          resources:
+            limits:
+              cpu: 300m
+              memory: 300Mi
+            requests:
+              cpu: 300m
+              memory: 300Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            capabilities:
+              add:
+                - SYS_ADMIN
+                - SYS_PTRACE
+            privileged: false
+            readOnlyRootFilesystem: false
+            runAsGroup: 0
+            runAsNonRoot: false
+            runAsUser: 0
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /var/run/docker.sock
+              name: docker
+            - mountPath: /hostfs
+              name: hostfs
+      dnsPolicy: ClusterFirst
+      hostNetwork: true
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      shareProcessNamespace: false
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - hostPath:
+            path: /var/run/docker.sock
+            type: ""
+          name: docker
+        - hostPath:
+            path: /
+            type: ""
+          name: hostfs
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate

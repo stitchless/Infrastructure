@@ -61,8 +61,8 @@ jobs:
 #          args: apply -k ./Deployments/ps-server
       # Deploy Phonito Security
       - name: Deploy Phonito Security
-      uses: actions-hub/kubectl@master
-      env:
-        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-      with:
-        args: apply -k ./Deployments/phonito
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: apply -k ./Deployments/phonito

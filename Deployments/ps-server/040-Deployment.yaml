@@ -23,7 +23,7 @@ spec:
             claimName: ps-server-volume-claim
       containers:
         - name: ps-server
-          image: localhost:5000/project-sharing-server:latest
+          image: localhost:32000/ps-server:registry
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 22001

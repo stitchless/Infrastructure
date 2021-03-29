@@ -38,7 +38,14 @@ jobs:
           phonito_api: ${{ secrets.PHONITO_API }}
         run: |
           go run main.go
-      # Deploy Wordpress
+      # Deploy Hello World
+      - name: Deploy Hello World web app
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: apply -k ./Deployments/helloworld
+#       Deploy Wordpress
 #      - name: Deploy Wordpress
 #        uses: actions-hub/kubectl@master
 #        env:
@@ -46,12 +53,12 @@ jobs:
 #        with:
 #          args: apply -k ./Deployments/wordpress-hieu
       # Deploy Adguard
-      - name: Deploy Adguard at Home
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-        with:
-          args: apply -k ./Deployments/adguard
+#      - name: Deploy Adguard at Home
+#        uses: actions-hub/kubectl@master
+#        env:
+#          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+#        with:
+#          args: apply -k ./Deployments/adguard
       # Deploy Project Sharing Server
 #      - name: Deploy Vectorworks, Inc. Project Sharing Server
 #        uses: actions-hub/kubectl@master

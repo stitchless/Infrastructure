@@ -4,8 +4,8 @@ metadata:
   name: hello-kubernetes
   namespace: helloworld
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: hello.nekomade.com
-    external-dns.alpha.kubernetes.io/ttl: "120"
+    external-dns.beta.kubernetes.io/hostname: hello.nekomade.com
+    external-dns.beta.kubernetes.io/ttl: "120"
 spec:
   type: LoadBalancer
   ports:

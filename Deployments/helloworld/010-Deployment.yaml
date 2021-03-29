@@ -1,0 +1,95 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: default-crt
+  namespace: default
+spec:
+  # The secret name where cert-manager should store the signed certificate
+  secretName: default-tls
+  dnsNames:
+    - hello.nekomade.com
+  # Duation of the certificate
+  duration: 168h
+  # Renew a day before the certificate expiration
+  renewBefore: 24h
+  # Reference the Origin CA Issuer you created above, which must be in the same namespace.
+  issuerRef:
+    group: cert-manager.k8s.cloudflare.com
+    kind: OriginIssuer
+    name: prod-issuer
+---
+apiVersion: cert-manager.k8s.cloudflare.com/v1
+kind: OriginIssuer
+metadata:
+  name: prod-issuer
+  namespace: default
+spec:
+  requestType: OriginECC
+  auth:
+    serviceKeyRef:
+      name: service-key
+      key: key
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-kubernetes
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: hello.nekomade.com
+    external-dns.alpha.kubernetes.io/ttl: "120" #optional
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: hello-kubernetes
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-kubernetes
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-kubernetes
+  template:
+    metadata:
+      labels:
+        app: hello-kubernetes
+    spec:
+      containers:
+        - name: hello-kubernetes
+          image: paulbouwer/hello-kubernetes:1.8
+          ports:
+            - containerPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-ingress
+  namespace: default
+  annotations:
+    cert-manager.io/issuer: prod-issuer
+    cert-manager.io/issuer-kind: OriginIssuer
+    cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
+spec:
+  tls:
+    # specifying a host in the TLS section will tell cert-manager what
+    # DNS SANs should be on the created certificate.
+    - hosts:
+        - hello.nekomade.com
+      # cert-manager will create this secret (Referenced from the cert that was previously created)
+      secretName: default-tls
+  rules:
+    - host: hello.nekomade.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hello-kubernetes
+                port:
+                  number: 80

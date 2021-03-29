@@ -66,7 +66,7 @@ microk8s status --wait-ready
 
 # jq (Optional) used to confirm cloudflare origin issuer
 # `kubectl describe` can be used later on to also verify as well
-sudo snap install jq --classic
+sudo snap install jq
 
 # If rbac.authorization.k8s.io/v1, or  rbac.authorization.k8s.io/v1beta1 is shown you have RBAC enabled
 kubectl api-versions

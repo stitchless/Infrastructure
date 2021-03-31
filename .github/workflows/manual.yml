@@ -40,7 +40,7 @@ jobs:
     steps:
       - name: test
         env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
+          GITHUB_CONTEXT: ${{ github.on.push }}
         run: echo "$GITHUB_CONTEXT"
 #    runs-on: ubuntu-20.04
 #    needs: Prep-Environmnet

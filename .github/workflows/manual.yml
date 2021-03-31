@@ -16,15 +16,39 @@ on:
         # Input has to be provided for the workflow to run
         required: true
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "greet"
-  greet:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
+  Prep-Environmnet:
+    runs-on: ubuntu-20.04
     steps:
-    # Runs a single command using the runners shell
-    - name: Send greeting
-      run: echo "Hello ${{ github.event.inputs.name }}"
+      - name: Prep Environmnet
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2.1.3
+        with:
+          go-version: '^1.16'
+      - name: Replace yaml with secrets
+        env:
+          wp_db_user: ${{ secrets.WP_DB_USER }}
+          wp_db_pass: ${{ secrets.WP_DB_PASS }}
+          adguard_ip: ${{ secrets.ADGUARD_IP }}
+          cachet_db_user: ${{ secrets.CACHET_DB_USER }}
+          cachet_db_pass: ${{ secrets.CACHET_DB_PASS }}
+          phonito_api: ${{ secrets.PHONITO_API }}
+        run: |
+          go run main.go
+  Deploy-Adguard:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: test
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+#    runs-on: ubuntu-20.04
+#    needs: Prep-Environmnet
+#    steps:
+#      - name: Deploy Adguard
+#      uses: actions-hub/kubectl@master
+#        env:
+#          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+#          KUBECTL_VERSION: "1.20"
+#        with:
+#          args: apply -k ./Deployments/adguard

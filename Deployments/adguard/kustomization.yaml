@@ -1,8 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 resources:
   - 010-Namespace.yaml
   - 020-Issuer.yaml
   - 021-Cert.yaml
   - 030-Volumes.yaml
+  - 050-Service.yaml
+  - 040-Deployment.yaml
+  - 060-Ingress.yaml
 ---
 secretGenerator:
   - name: adguard-secrets
@@ -16,13 +21,21 @@ patchesJson6902:
       kind: Service
       name: "adguard-lb"
       version: v1
-    path: patch.yaml
+    patch: |-
+      - op: replace
+        path: /spec/loadBalancerIP
+        valueFrom:
+          secretKeyRef:
+            name: adguard-secrets
+            key: adguard_ip
   - target:
       kind: Service
       name: "adguard-lb-dns"
       version: v1
-    path: patch.yaml
----
-resources:
-  - 040-Deployment.yaml
-  - 060-Ingress.yaml
+    patch: |-
+      - op: replace
+        path: /spec/loadBalancerIP
+        valueFrom:
+          secretKeyRef:
+            name: adguard-secrets
+            key: adguard_ip

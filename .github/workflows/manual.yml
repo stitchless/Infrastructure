@@ -17,6 +17,11 @@ on:
         required: true
 
 jobs:
+  get_tags:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Get Latest Tags
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
 #  Prep-Environmnet:
 #    runs-on: ubuntu-20.04
 #    steps:
@@ -40,8 +45,8 @@ jobs:
     steps:
       - name: test
         env:
-          GITHUB_CONTEXT: ${{ github.on.push }}
-        run: echo "$GITHUB_CONTEXT"
+          TAG_NAME: ${{ steps.get_tags.outputs.VERSION }}
+        run: echo "$TAG_NAME"
 #    runs-on: ubuntu-20.04
 #    needs: Prep-Environmnet
 #    steps:

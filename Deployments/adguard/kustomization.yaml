@@ -8,11 +8,6 @@ resources:
   - 050-Service.yaml
   - 040-Deployment.yaml
   - 060-Ingress.yaml
----
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - 050-Service.yaml
 secretGenerator:
   - name: adguard-secrets
     namespace: adguard

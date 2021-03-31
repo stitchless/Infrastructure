@@ -20,7 +20,7 @@ jobs:
   get_tags:
     runs-on: ubuntu-20.04
     steps:
-      - name: Get Latest Tags
+      - name: get_tags
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - name: test
         env:

@@ -16,8 +16,8 @@ secretGenerator:
 patchesJson6902:
   - target:
       kind: Service
-      name: "adguard-lb"
-      version: v1
+      name: adguard-lb
+      version: v2
     patch: |-
       - op: replace
         path: /spec/loadBalancerIP
@@ -27,8 +27,8 @@ patchesJson6902:
             key: adguard_ip
   - target:
       kind: Service
-      name: "adguard-lb-dns"
-      version: v1
+      name: adguard-lb-dns
+      version: v2
     patch: |-
       - op: replace
         path: /spec/loadBalancerIP

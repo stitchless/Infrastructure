@@ -57,6 +57,7 @@ jobs:
         uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+          KUBECTL_VERSION: "1.20"
         with:
           args: apply -k ./Deployments/adguard
       # Deploy Project Sharing Server

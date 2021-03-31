@@ -17,24 +17,24 @@ on:
         required: true
 
 jobs:
-  Prep-Environmnet:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Prep Environmnet
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2.1.3
-        with:
-          go-version: '^1.16'
-      - name: Replace yaml with secrets
-        env:
-          wp_db_user: ${{ secrets.WP_DB_USER }}
-          wp_db_pass: ${{ secrets.WP_DB_PASS }}
-          adguard_ip: ${{ secrets.ADGUARD_IP }}
-          cachet_db_user: ${{ secrets.CACHET_DB_USER }}
-          cachet_db_pass: ${{ secrets.CACHET_DB_PASS }}
-          phonito_api: ${{ secrets.PHONITO_API }}
-        run: |
-          go run main.go
+#  Prep-Environmnet:
+#    runs-on: ubuntu-20.04
+#    steps:
+#      - name: Prep Environmnet
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-go@v2.1.3
+#        with:
+#          go-version: '^1.16'
+#      - name: Replace yaml with secrets
+#        env:
+#          wp_db_user: ${{ secrets.WP_DB_USER }}
+#          wp_db_pass: ${{ secrets.WP_DB_PASS }}
+#          adguard_ip: ${{ secrets.ADGUARD_IP }}
+#          cachet_db_user: ${{ secrets.CACHET_DB_USER }}
+#          cachet_db_pass: ${{ secrets.CACHET_DB_PASS }}
+#          phonito_api: ${{ secrets.PHONITO_API }}
+#        run: |
+#          go run main.go
   Deploy-Adguard:
     runs-on: ubuntu-20.04
     steps:

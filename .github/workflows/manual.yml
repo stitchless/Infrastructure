@@ -22,6 +22,10 @@ jobs:
     steps:
       - name: Get Latest Tags
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: test
+        env:
+          TAG_NAME: ${{ steps.get_tags.outputs.VERSION }}
+        run: echo "$TAG_NAME"
 #  Prep-Environmnet:
 #    runs-on: ubuntu-20.04
 #    steps:

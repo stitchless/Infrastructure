@@ -77,11 +77,11 @@ kubectl api-versions
 Most of these add-ons are general use to make life easier
 ```bash
 microk8s enable \
-  dashboard \
+  rbac \
   dns \
-  ingress \
+  ingress \ # or your choice of ingress controller
   metallb \ # optional
-  prometheus \ # WIP
+  prometheus \ # optional
   storage # WIP
 ```
 

@@ -29,6 +29,7 @@ jobs:
       - uses: dorny/paths-filter@v2.9.3
         id: filter
         with:
+          list-files: yaml
           filters: |
             deployments: 'Deployments/**'
           base: 'dev'
@@ -39,7 +40,7 @@ jobs:
     if: ${{ needs.changes.outputs.deployments == 'true' }}
     runs-on: ubuntu-20.04
     steps:
-      - run: echo ${{ needs.changes.outputs.deployments }} && echo ${{ needs.changes.outputs.changes }}
+      - run: echo ${{ needs.changes.outputs.deployments }} && echo ${{ needs.changes.outputs.changed_files }}
   changesFalse:
     continue-on-error: true
     needs: changes

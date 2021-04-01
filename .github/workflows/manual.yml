@@ -35,20 +35,21 @@ jobs:
               - added|modified: '**/*.yaml'
           base: 'dev'
           initial-fetch-depth: '10'
-  changesTrue:
-    continue-on-error: true
-    needs: changes
-    if: ${{ needs.changes.outputs.deployments == 'true' }}
-    runs-on: ubuntu-20.04
-    steps:
-      - run: echo ${{ needs.changes.outputs.deployments }} && echo ${{ needs.changes.outputs.deployments_files }}
-  changesFalse:
-    continue-on-error: true
-    needs: changes
-    if: ${{ needs.changes.outputs.deployments == 'false' }}
-    runs-on: ubuntu-20.04
-    steps:
-      - run: echo ${{ needs.changes.outputs.deployments }}
+      - run: echo $${ steps.filter.outputs.deployments_files }}
+#  changesTrue:
+#    continue-on-error: true
+#    needs: changes
+#    if: ${{ needs.changes.outputs.deployments == 'true' }}
+#    runs-on: ubuntu-20.04
+#    steps:
+#      - run: echo ${{ needs.changes.outputs.deployments }} && echo ${{ needs.changes.outputs.deployments_files }}
+#  changesFalse:
+#    continue-on-error: true
+#    needs: changes
+#    if: ${{ needs.changes.outputs.deployments == 'false' }}
+#    runs-on: ubuntu-20.04
+#    steps:
+#      - run: echo ${{ needs.changes.outputs.deployments }}
 #  get_tags:
 #    runs-on: ubuntu-20.04
 #    outputs:

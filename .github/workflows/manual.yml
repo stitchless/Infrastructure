@@ -26,8 +26,6 @@ jobs:
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
       changedFiles: ${{ steps.filter.outputs.deployments_files }}
-    env:
-      test: ${{ steps.filter.outputs.deployments_files }}
     steps:
       # Checkout Repo
       - uses: actions/checkout@v2
@@ -43,6 +41,7 @@ jobs:
           initial-fetch-depth: '10'
           working-directory: 'Deployments'
       - run: |
+          export TEST=${{ steps.filter.outputs.deployments_files }}
           echo "${{ steps.filter.outputs.changedFiles }}"
           echo "$(go run detectChanges.go $test)"
 

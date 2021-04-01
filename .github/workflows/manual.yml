@@ -29,18 +29,24 @@ jobs:
           filters: |
             deployments: 'Deployments/**'
           token: ${{ secrets.ACTION_TOKEN }}
-  changesTrue:
-    needs: changes
-    if: ${{ needs.changes.outputs.deployments == 'true' }}
-    runs-on: ubuntu-20.04
-    steps:
-      - run: echo ${{ needs.changes.outputs.deployments }}
-  changesFalse:
-    needs: changes
-    if: ${{ needs.changes.outputs.deployments == 'false' }}
-    runs-on: ubuntu-20.04
-    steps:
-      - run: echo ${{ needs.changes.outputs.deployments }}
+      - name: Print Changes - True
+        if: ${{ steps.filter.outputs.deployments == 'true' }}
+        run: echo ${{ needs.changes.outputs.deployments }}
+      - name: Print Changes - False
+        if: ${{ steps.filter.outputs.deployments == 'false' }}
+        run: echo ${{ needs.changes.outputs.deployments }}
+#  changesTrue:
+#    needs: changes
+#    if: ${{ needs.changes.outputs.deployments == 'true' }}
+#    runs-on: ubuntu-20.04
+#    steps:
+#      - run: echo ${{ needs.changes.outputs.deployments }}
+#  changesFalse:
+#    needs: changes
+#    if: ${{ needs.changes.outputs.deployments == 'false' }}
+#    runs-on: ubuntu-20.04
+#    steps:
+#      - run: echo ${{ needs.changes.outputs.deployments }}
 #  get_tags:
 #    runs-on: ubuntu-20.04
 #    outputs:

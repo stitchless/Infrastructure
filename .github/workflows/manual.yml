@@ -36,7 +36,7 @@ jobs:
           base: 'dev'
           initial-fetch-depth: '10'
           working-directory: 'Deployments'
-      - run: echo $${ steps.filter.outputs.deployments_files }}
+      - run: echo $${ steps.filter.outputs.changes }}
 #  changesTrue:
 #    continue-on-error: true
 #    needs: changes

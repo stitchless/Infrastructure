@@ -37,7 +37,7 @@ jobs:
           initial-fetch-depth: '10'
           working-directory: 'Deployments'
 
-  //
+
   get_Unique_Directories:
     continue-on-error: true
     needs: changes

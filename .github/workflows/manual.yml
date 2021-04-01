@@ -39,7 +39,7 @@ jobs:
     if: ${{ needs.changes.outputs.deployments == 'true' }}
     runs-on: ubuntu-20.04
     steps:
-      - run: echo ${{ needs.changes.outputs.deployments }} && echo ${{ fromJSON(needs.changes.outputs.changes) }}
+      - run: echo ${{ needs.changes.outputs.deployments }} && echo ${{ needs.changes.outputs.changes }}
   changesFalse:
     continue-on-error: true
     needs: changes

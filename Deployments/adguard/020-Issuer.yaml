@@ -1,4 +1,4 @@
-# Issuer.yaml as
+# Issuer.yaml a
 apiVersion: cert-manager.k8s.cloudflare.com/v1
 kind: OriginIssuer
 metadata:

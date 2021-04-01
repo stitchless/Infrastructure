@@ -27,10 +27,8 @@ jobs:
       deployments: ${{ steps.filter.outputs.deployments }}
       changedFiles: ${{ steps.filter.outputs.deployments_files }}
     steps:
-
       - name: Checkout Repo
       - uses: actions/checkout@v2
-
       - name: Set up Filter
       - uses: dorny/paths-filter@v2.9.3
         id: filter
@@ -50,10 +48,8 @@ jobs:
     if: ${{ needs.changes.outputs.deployments == 'true' }}
     runs-on: self-hosted
     steps:
-
       - name: Checkout Repo
       - uses: actions/checkout@v2
-
       - name: Setup Go
       - uses: actions/setup-go@v2.1.3
         with:

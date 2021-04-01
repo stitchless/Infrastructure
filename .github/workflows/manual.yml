@@ -23,7 +23,7 @@ jobs:
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
     steps:
-      - uses: dorny/paths-filter@v2
+      - uses: dorny/paths-filter@v2.9.3
         id: filter
         with:
           filters: |

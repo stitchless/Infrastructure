@@ -29,6 +29,7 @@ jobs:
           filters: |
             deployments:
               - 'Deployments/**'
+          token: ${{ secrets.ACTION_TOKEN }}
   changesTrue:
     needs: changes
     if: ${{ needs.changes.outputs.deployments == 'true' }}

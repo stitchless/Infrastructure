@@ -1,4 +1,4 @@
-# Namespace.yaml ssgc
+# Namespace.yaml ssg
 apiVersion: v1
 kind: Namespace
 metadata:

@@ -31,7 +31,8 @@ jobs:
         with:
           list-files: json
           filters: |
-            deployments: 'Deployments/**'
+            deployments:
+              - added|modified: '**/*.yaml'
           base: 'dev'
           initial-fetch-depth: '10'
   changesTrue:

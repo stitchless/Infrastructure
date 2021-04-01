@@ -29,11 +29,11 @@ jobs:
       - uses: dorny/paths-filter@v2.9.3
         id: filter
         with:
-          list-files: csv
+          list-files: json
           filters: |
             deployments: 'Deployments/**'
           base: 'dev'
-          initial-fetch-depth: '1'
+          initial-fetch-depth: '10'
   changesTrue:
     continue-on-error: true
     needs: changes

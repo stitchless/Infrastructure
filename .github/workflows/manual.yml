@@ -23,7 +23,7 @@ jobs:
       tagName: ${{ steps.getTags.outputs.tagName }}
     steps:
       - id: getTags
-        run: echo "::set-output name=tagName::${GITHUB_REF/refs\/tags\//}"
+        run: echo "::set-output name=tagName::${GITHUB_REF#refs/*/}"
   Print_tags:
     runs-on: ubuntu-20.04
     needs: get_tags

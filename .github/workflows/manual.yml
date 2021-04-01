@@ -42,7 +42,7 @@ jobs:
     if: ${{ needs.changes.outputs.deployments == 'true' }}
     runs-on: ubuntu-20.04
     steps:
-      - run: echo ${{ needs.changes.outputs.deployments }} && echo ${{ needs.changes.outputs.changedFiles }}
+#      - run: echo ${{ needs.changes.outputs.deployments }} && echo ${{ needs.changes.outputs.changedFiles }}
       - uses: actions/setup-go@v2.1.3
         with:
           go-version: '^1.16'

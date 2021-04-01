@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-20.04
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
+      changes: ${{ steps.filter.outputs.changes }}
     steps:
       - uses: actions/checkout@v2
       - uses: dorny/paths-filter@v2.9.3
@@ -30,13 +31,15 @@ jobs:
         with:
           filters: |
             deployments: 'Deployments/**'
+          base: 'dev'
+          initial-fetch-depth: '1'
   changesTrue:
     continue-on-error: true
     needs: changes
     if: ${{ needs.changes.outputs.deployments == 'true' }}
     runs-on: ubuntu-20.04
     steps:
-      - run: echo ${{ needs.changes.outputs.deployments }}
+      - run: echo ${{ needs.changes.outputs.deployments }} && echo ${{ needs changes.outputs.changes }}
   changesFalse:
     continue-on-error: true
     needs: changes

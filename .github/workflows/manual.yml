@@ -19,6 +19,7 @@ on:
 
 jobs:
   changes:
+    continue-on-error: true
     runs-on: ubuntu-20.04
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}

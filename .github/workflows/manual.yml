@@ -19,7 +19,7 @@ on:
 
 jobs:
   changes:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
     steps:
@@ -32,13 +32,13 @@ jobs:
   changesTrue:
     needs: changes
     if: ${{ needs.changes.outputs.deployments == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - run: echo ${{ needs.changes.outputs.deployments }}
   changesFalse:
     needs: changes
     if: ${{ needs.changes.outputs.deployments == 'false' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - run: echo ${{ needs.changes.outputs.deployments }}
 #  get_tags:

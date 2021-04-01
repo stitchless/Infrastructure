@@ -5,6 +5,9 @@ name: Manual workflow
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
+  push:
+    tags:
+      - '*'
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
@@ -29,7 +32,7 @@ jobs:
     needs: get_tags
     steps:
       - run: echo ${{needs.get_tags.outputs.tagName}}
-        
+
 #  Prep-Environmnet:
 #    runs-on: ubuntu-20.04
 #    steps:

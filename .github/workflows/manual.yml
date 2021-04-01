@@ -45,6 +45,8 @@ jobs:
           output=$(go run detectChanges.go $test) && \
           echo $output && \
           echo ::set-output name=directories::$output
+      - name: test
+        run: echo ${{ steps.filter.outputs.directories }}
 #          echo "${{ steps.filter.outputs.changedFiles }}"
 #          echo "$(go run detectChanges.go $test)"
 
@@ -69,10 +71,10 @@ jobs:
 #      - name: Print Value
 #        run: echo "${{ steps.directories.get_directories }}"
 
-  # Prints the unique directories found from the previous step
-  print_Directories:
-    continue-on-error: true
-    needs: changes
-    runs-on: self-hosted
-    steps:
-      - run: echo ${{ needs.changes.outputs.directories }}
+#  # Prints the unique directories found from the previous step
+#  print_Directories:
+#    continue-on-error: true
+#    needs: changes
+#    runs-on: self-hosted
+#    steps:
+#      - run: echo ${{ needs.changes.outputs.directories }}

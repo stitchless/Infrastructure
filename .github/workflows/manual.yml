@@ -47,17 +47,18 @@ jobs:
     needs: changes
     if: ${{ needs.changes.outputs.deployments == 'true' }}
     runs-on: self-hosted
+    env:
+      directories: ${{ needs.changes.outputs.changedFiles }}
     steps:
       # Checkout Repo
       - uses: actions/checkout@v2
       # Setup Go
-      - uses: actions/setup-go@v2.1.3
-        with:
-          go-version: '^1.16'
-        id: directories
+#      - uses: actions/setup-go@v2.1.3
+#        with:
+#          go-version: '^1.16'
+#        id: directories
       - run: |
-          export directories='$(go run detectChanges.go ${{ needs.changes.outputs.changedFiles }})'
-          echo '::set-output name=get_directories::$(go run detectChanges.go ${{ needs.changes.outputs.changedFiles }})'
+          echo "::set-output name=get_directories::$(go run detectChanges.go $(directories))"
       - name: Print Value
         run: echo "${{ steps.directories.get_directories }}"
 

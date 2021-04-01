@@ -43,7 +43,7 @@ jobs:
       - run: |
           test=${{ steps.filter.outputs.deployments_files }} && \
           output=$(go run detectChanges.go $test) && \
-          echo $output
+          echo "$output"
 #          echo ${{ steps.filter.outputs.deployments_files }}
 #          echo "${{ steps.filter.outputs.changedFiles }}"
 #          echo "$(go run detectChanges.go $test)"

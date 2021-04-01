@@ -27,7 +27,11 @@ jobs:
       deployments: ${{ steps.filter.outputs.deployments }}
       changedFiles: ${{ steps.filter.outputs.deployments_files }}
     steps:
+
+      - name: Checkout Repo
       - uses: actions/checkout@v2
+
+      - name: Set up Filter
       - uses: dorny/paths-filter@v2.9.3
         id: filter
         with:
@@ -46,13 +50,18 @@ jobs:
     if: ${{ needs.changes.outputs.deployments == 'true' }}
     runs-on: ubuntu-20.04
     steps:
+
+      - name: Checkout Repo
       - uses: actions/checkout@v2
+
+      - name: Setup Go
       - uses: actions/setup-go@v2.1.3
         with:
           go-version: '^1.16'
         id: directories
       - run: |
-          echo "::set-output name=get-directories::$(go run detectChanges.go ${{ needs.changes.outputs.changedFiles }})"
+          directories=$(go run detectChanges.go ${{ needs.changes.outputs.changedFiles }}) &&
+          echo "::set-output name=get_directories::$(directories)"
 
 #  # Prints the unique directories found from the previous step
 #  print_Directories:

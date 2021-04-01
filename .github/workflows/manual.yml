@@ -54,10 +54,10 @@ jobs:
       - run: |
           echo "::set-output name=get-directories::$(go run detectChanges.go ${{ needs.changes.outputs.changedFiles }})"
 
-  # Prints the unique directories found from the previous step
-  print_Directories:
-    continue-on-error: true
-    needs: get_Unique_Directories
-    runs-on: ubuntu-20.04
-    steps:
-      - run: echo ${{ needs.get_Unique_Directories.directories.outputs.get-directories }}
+#  # Prints the unique directories found from the previous step
+#  print_Directories:
+#    continue-on-error: true
+#    needs: get_Unique_Directories
+#    runs-on: ubuntu-20.04
+#    steps:
+#      - run: echo ${{ needs.get_Unique_Directories.directories.outputs.get-directories }}

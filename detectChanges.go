@@ -7,10 +7,10 @@ import (
 )
 
 func main() {
-	fmt.Println("Reading Environment Variables...")
-	var inputDirectories string
-	inputDirectories = os.Getenv("TEST")
-	fmt.Printf("Found Directories: %s\n", inputDirectories)
+	//fmt.Println("Reading Environment Variables...")
+	//var inputDirectories string
+	//inputDirectories = os.Getenv("TEST")
+	//fmt.Printf("Found Directories: %s\n", inputDirectories)
 
 
 	if len(os.Args) > 1 {

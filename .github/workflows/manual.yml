@@ -19,13 +19,16 @@ on:
 jobs:
   get_tags:
     runs-on: ubuntu-20.04
+    outputs:
+      tagName: ${{ steps.getTags.outputs.tagName }}
     steps:
-      - name: get_tags
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-      - name: test
-        env:
-          TAG_NAME: ${{ steps.get_tags.outputs.VERSION }}
-        run: echo "$TAG_NAME"
+      - id: getTags
+        run: echo "::set-output name=tagName::${GITHUB_REF/refs\/tags\//}"
+  Print_tags:
+    runs-on: ubuntu-20.04
+    needs: get_tags
+    steps:
+      - run: echo ${{needs.get_tags.outputs.tagName}}
 #  Prep-Environmnet:
 #    runs-on: ubuntu-20.04
 #    steps:
@@ -44,16 +47,6 @@ jobs:
 #          phonito_api: ${{ secrets.PHONITO_API }}
 #        run: |
 #          go run main.go
-  Deploy-Adguard:
-    runs-on: ubuntu-20.04
-    steps:
-      - name: test
-        env:
-          TAG_NAME: ${{ steps.get_tags.outputs.VERSION }}
-        run: echo "$TAG_NAME"
-#    runs-on: ubuntu-20.04
-#    needs: Prep-Environmnet
-#    steps:
 #      - name: Deploy Adguard
 #      uses: actions-hub/kubectl@master
 #        env:

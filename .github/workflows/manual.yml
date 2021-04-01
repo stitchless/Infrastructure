@@ -31,11 +31,11 @@ jobs:
           filters: |
             deployments: 'Deployments/**'
           token: ${{ secrets.ACTION_TOKEN }}
-      - name: Print Changes - True
-        if: ${{ steps.filter.outputs.deployments == 'true' }}
-        run: echo ${{ needs.changes.outputs.deployments }}
       - name: Print Changes - False
         if: ${{ steps.filter.outputs.deployments == 'false' }}
+        run: echo ${{ needs.changes.outputs.deployments }}
+      - name: Print Changes - True
+        if: ${{ steps.filter.outputs.deployments == 'true' }}
         run: echo ${{ needs.changes.outputs.deployments }}
 #  changesTrue:
 #    needs: changes

@@ -19,7 +19,7 @@ func main() {
 					output = append(output, directory)
 				}
 			}
-			fmt.Println(output)
 		}
+		fmt.Println(output)
 	}
 }

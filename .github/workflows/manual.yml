@@ -40,27 +40,30 @@ jobs:
           base: 'dev'
           initial-fetch-depth: '10'
           working-directory: 'Deployments'
+      run: |
+        echo "${{ steps.filter.outputs.changedFiles }}"
+        echo "$(go run detectChanges.go ${{ steps.filter.outputs.changedFiles }})"
 
   # Uses the changes job to get the unique directories for each change found
-  get_Unique_Directories:
-    continue-on-error: true
-    needs: changes
-    if: ${{ needs.changes.outputs.deployments == 'true' }}
-    runs-on: self-hosted
-    env:
-      directories: ${{ needs.changes.outputs.changedFiles }}
-    steps:
-      # Checkout Repo
-      - uses: actions/checkout@v2
-      # Setup Go
-#      - uses: actions/setup-go@v2.1.3
-#        with:
-#          go-version: '^1.16'
-#        id: directories
-      - run: |
-          echo "$(go run detectChanges.go $directories)"
-      - name: Print Value
-        run: echo "${{ steps.directories.get_directories }}"
+#  get_Unique_Directories:
+#    continue-on-error: true
+#    needs: changes
+#    if: ${{ needs.changes.outputs.deployments == 'true' }}
+#    runs-on: self-hosted
+#    env:
+#      directories: ${{ needs.changes.outputs.changedFiles }}
+#    steps:
+#      # Checkout Repo
+#      - uses: actions/checkout@v2
+#      # Setup Go
+##      - uses: actions/setup-go@v2.1.3
+##        with:
+##          go-version: '^1.16'
+##        id: directories
+#      - run: |
+#          echo "$(go run detectChanges.go $directories)"
+#      - name: Print Value
+#        run: echo "${{ steps.directories.get_directories }}"
 
 #  # Prints the unique directories found from the previous step
 #  print_Directories:

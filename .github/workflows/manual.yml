@@ -6,8 +6,6 @@ name: Manual workflow
 # or API.
 on:
   push:
-    tags:
-      - '*'
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:

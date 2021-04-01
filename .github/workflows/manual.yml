@@ -72,7 +72,7 @@ jobs:
   # Prints the unique directories found from the previous step
   print_Directories:
     continue-on-error: true
-    needs: get_Unique_Directories
+    needs: changes
     runs-on: self-hosted
     steps:
       - run: echo ${{ needs.changes.filter.outputs.directories }}

@@ -1,4 +1,4 @@
-# Namespace.yaml ssdrfdd
+# Namespace.yaml ssdr
 apiVersion: v1
 kind: Namespace
 metadata:

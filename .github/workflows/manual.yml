@@ -48,7 +48,7 @@ jobs:
           go-version: '^1.16'
       - name: run go script
         run: |
-          go run detectChanges.go
+          go run ../detectChanges.go ${{ needs.changes.outputs.changedFiles }}
   changesFalse:
     continue-on-error: true
     needs: changes

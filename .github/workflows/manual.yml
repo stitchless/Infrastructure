@@ -26,6 +26,8 @@ jobs:
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
       changedFiles: ${{ steps.filter.outputs.deployments_files }}
+    env:
+      test: ${{ steps.filter.outputs.deployments_files }}
     steps:
       # Checkout Repo
       - uses: actions/checkout@v2
@@ -42,7 +44,7 @@ jobs:
           working-directory: 'Deployments'
       - run: |
           echo "${{ steps.filter.outputs.changedFiles }}"
-          echo "$(go run detectChanges.go ${{ steps.filter.outputs.changedFiles }})"
+          echo "$(go run detectChanges.go $test)"
 
   # Uses the changes job to get the unique directories for each change found
 #  get_Unique_Directories:

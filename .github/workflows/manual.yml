@@ -56,7 +56,7 @@ jobs:
           go-version: '^1.16'
         id: directories
       - run: |
-          directories=cat '$(go run detectChanges.go ${{ needs.changes.outputs.changedFiles }})'
+          directories='$(go run detectChanges.go ${{ needs.changes.outputs.changedFiles }})'
           echo "::set-output name=get_directories::$(directories)"
 
 #  # Prints the unique directories found from the previous step

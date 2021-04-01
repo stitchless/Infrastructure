@@ -18,18 +18,41 @@ on:
         required: true
 
 jobs:
-  get_tags:
-    runs-on: ubuntu-20.04
+  changes:
+    runs-on: ubuntu-latest
     outputs:
-      tagName: ${{ steps.getTags.outputs.tagName }}
+      deployments: ${{ steps.filter.outputs.deployments }}
     steps:
-      - id: getTags
-        run: echo "::set-output name=tagName::${GITHUB_REF#refs/*/}"
-  Print_tags:
-    runs-on: ubuntu-20.04
-    needs: get_tags
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            deployments:
+              - 'Deployments/**'
+  changesTrue:
+    needs: changes
+    if: ${{ needs.changes.outputs.deployments == 'true' }}
+    runs-on: ubuntu-latest
     steps:
-      - run: echo ${{needs.get_tags.outputs.tagName}}
+      - run: echo ${{ needs.changes.outputs.deployments }}
+  changesFalse:
+    needs: changes
+    if: ${{ needs.changes.outputs.deployments == 'false' }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${{ needs.changes.outputs.deployments }}
+#  get_tags:
+#    runs-on: ubuntu-20.04
+#    outputs:
+#      tagName: ${{ steps.getTags.outputs.tagName }}
+#    steps:
+#      - id: getTags
+#        run: echo "::set-output name=tagName::${GITHUB_REF#refs/*/}"
+#  Print_tags:
+#    runs-on: ubuntu-20.04
+#    needs: get_tags
+#    steps:
+#      - run: echo ${{needs.get_tags.outputs.tagName}}
 
 #  Prep-Environmnet:
 #    runs-on: ubuntu-20.04

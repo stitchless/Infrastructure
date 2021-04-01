@@ -53,8 +53,8 @@ jobs:
         id: getDirectories
         with:
           go-version: '^1.16'
-      run: |
-        go run detectChanges.go ${{ needs.changes.outputs.changedFiles }}
+      - run: |
+          go run detectChanges.go ${{ needs.changes.outputs.changedFiles }}
 
   # Prints the unique directories found from the previous step
   print_Directories:

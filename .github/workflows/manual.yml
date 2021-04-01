@@ -33,7 +33,7 @@ jobs:
       - uses: dorny/paths-filter@v2.9.3
         id: filter
         with:
-          list-files: shell
+          list-files: json
           filters: |
             deployments:
               - added|modified: '**/*.yaml'
@@ -41,9 +41,9 @@ jobs:
           initial-fetch-depth: '10'
           working-directory: 'Deployments'
       - run: |
-          export TEST=${{ steps.filter.outputs.deployments_files }}
-          echo "${{ steps.filter.outputs.changedFiles }}"
-          echo "$(go run detectChanges.go $test)"
+          echo ${{ steps.filter.outputs.deployments_files }}
+#          echo "${{ steps.filter.outputs.changedFiles }}"
+#          echo "$(go run detectChanges.go $test)"
 
   # Uses the changes job to get the unique directories for each change found
 #  get_Unique_Directories:

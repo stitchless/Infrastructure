@@ -27,8 +27,7 @@ jobs:
         id: filter
         with:
           filters: |
-            deployments:
-              - 'Deployments/**'
+            deployments: 'Deployments/**'
           token: ${{ secrets.ACTION_TOKEN }}
   changesTrue:
     needs: changes

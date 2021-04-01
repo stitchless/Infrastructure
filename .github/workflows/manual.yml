@@ -36,27 +36,29 @@ jobs:
           base: 'dev'
           initial-fetch-depth: '10'
           working-directory: 'Deployments'
-  changesTrue:
+
+  //
+  get_Unique_Directories:
     continue-on-error: true
     needs: changes
     if: ${{ needs.changes.outputs.deployments == 'true' }}
     runs-on: ubuntu-20.04
+    outputs:
+      directories: ${{ steps.getDirectories.outputs }}
     steps:
-#      - run: echo ${{ needs.changes.outputs.deployments }} && echo ${{ needs.changes.outputs.changedFiles }}
+      - uses: actions/checkout@v2
       - uses: actions/setup-go@v2.1.3
+        id: getDirectories
         with:
           go-version: '^1.16'
-      - name: run go script
         run: |
-          go run ../detectChanges.go ${{ needs.changes.outputs.changedFiles }}
-  changesFalse:
+          go run detectChanges.go ${{ needs.changes.outputs.changedFiles }}
+  print_Directories:
     continue-on-error: true
-    needs: changes
-    if: ${{ needs.changes.outputs.deployments == 'false' }}
+    needs: get_Unique_Directories
     runs-on: ubuntu-20.04
     steps:
-      - run: echo ${{ needs.changes.outputs.deployments }}
-#  get_tags:
+      - run: echo ${{ needs.get_Unique_Directories.outputs.directories }}
 #    runs-on: ubuntu-20.04
 #    outputs:
 #      tagName: ${{ steps.getTags.outputs.tagName }}

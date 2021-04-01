@@ -58,7 +58,7 @@ jobs:
 #          go-version: '^1.16'
 #        id: directories
       - run: |
-          echo "::set-output name=get_directories::$(go run detectChanges.go $(directories))"
+          echo "$(go run detectChanges.go $(directories))"
       - name: Print Value
         run: echo "${{ steps.directories.get_directories }}"
 

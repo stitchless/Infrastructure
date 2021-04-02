@@ -26,6 +26,6 @@ func main() {
 				}
 			}
 		}
-		fmt.Print(output)
+		fmt.Printf("%v", output)
 	}
 }

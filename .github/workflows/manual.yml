@@ -43,8 +43,7 @@ jobs:
           working-directory: 'Deployments'
       - run: |
           input=${{ steps.filter.outputs.deployments_files }} && \
-          changed_output=$(go run detectChanges.go $input) && \
-          echo $changed_output
+          go run detectChanges.go $input
 #          echo '::set-output name=changed_output::${{ changed_output }}'
 
   # Uses the changes job to get the unique directories for each change found

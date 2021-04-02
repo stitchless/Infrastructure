@@ -4,13 +4,12 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 )
 
 func main() {
 	if len(os.Args) > 1 {
-		app := "echo"
+		//app := "echo"
 		directories := make(map[string]string)
 		var output []string
 
@@ -23,15 +22,16 @@ func main() {
 				}
 			}
 		}
-		fmt.Println(output)
+		//fmt.Println(output)
 		// Send the results to the outputs of the github script step via echo command
 		formattedArg := fmt.Sprintf("::set-output name=changed_output::%+v", output)
-		cmd := exec.Command(app, formattedArg)
-		stdout, err := cmd.Output()
-
-		if err != nil {
-			println(err.Error())
-		}
-		print(string(stdout))
+		fmt.Println(formattedArg)
+		//cmd := exec.Command(app, formattedArg)
+		//stdout, err := cmd.Output()
+		//
+		//if err != nil {
+		//	println(err.Error())
+		//}
+		//print(string(stdout))
 	}
 }

@@ -53,10 +53,10 @@ jobs:
   # Uses the changes job to get the unique directories for each change found
   Matrix_Deployment:
     continue-on-error: true
-    needs: changes
+    needs: Format_Changed_Directories
     if: ${{ needs.changes.outputs.deployments == 'true' }}
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - run: |
-          echo "Running Matrix to deploy: ${{ needs.changes.outputs.changed_directories }}"
+          echo "Running Matrix to deploy: ${{ needs.Format_Changed_Directories.outputs.changed_directories }}"

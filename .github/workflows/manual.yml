@@ -26,7 +26,7 @@ jobs:
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
       deployments_files: ${{ steps.filter.outputs.deployments_files }}
-      changed_directories: ${{ steps.filter.outputs.changed_output }}
+      changed_directories: ${{ steps.script.outputs.changed_output }}
     steps:
       # Checkout Repo
       - uses: actions/checkout@v2
@@ -45,7 +45,7 @@ jobs:
         run: |
           input=${{ steps.filter.outputs.deployments_files }} && \
           test=$(go run detectChanges.go $input) && \
-          echo '::set-output name=changed_output::$(echo $test)'
+          echo "::set-output name=changed_output::$test"
       - id: test
         run : |
           echo ${{ steps.script.outputs.changed_output }}

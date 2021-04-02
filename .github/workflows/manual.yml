@@ -59,5 +59,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          echo "Found The following edited files: ${{ needs.Format_Changed_Directories.outputs.deployments_files }}
+          echo "Found The following edited files: ${{ needs.Format_Changed_Directories.outputs.deployments_files }}"
           echo "Running Matrix to deploy: ${{ needs.Format_Changed_Directories.outputs.changed_directories }}"

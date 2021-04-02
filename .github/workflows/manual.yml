@@ -25,7 +25,7 @@ jobs:
     runs-on: self-hosted
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
-      changedFiles: ${{ steps.filter.outputs.deployments_files }}
+      changed_files: ${{ steps.filter.outputs.deployments_files }}
     steps:
       # Checkout Repo
       - uses: actions/checkout@v2
@@ -46,7 +46,7 @@ jobs:
           echo $output && \
           echo ::set-output name=directories::$output
       - name: test
-        run: echo "Start -- ${{ steps.filter.changedFiles }} -- End"
+        run: echo "Start -- ${{ steps.filter.outputs.changed_files }} -- End"
 #          echo "${{ steps.filter.outputs.changedFiles }}"
 #          echo "$(go run detectChanges.go $test)"
 

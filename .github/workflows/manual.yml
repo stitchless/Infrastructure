@@ -41,7 +41,7 @@ jobs:
           base: 'dev'
           initial-fetch-depth: '10'
           working-directory: 'Deployments'
-        run: |
+      - run: |
           input=${{ steps.filter.outputs.deployments_files }} && \
           test=$(go run detectChanges.go $input) && \
           echo '::set-output name=changed_output::$(echo $test)'

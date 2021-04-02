@@ -44,7 +44,7 @@ jobs:
           test=${{ steps.filter.outputs.deployments_files }} && \
           output=$(go run detectChanges.go $test) && \
           echo $output && \
-          echo ::set-output name=directories::$output
+          echo "::set-output name=directories::$output"
       - name: test
         run: echo "Start -- ${{ steps.filter.outputs.changed_files }} -- End"
 #          echo "${{ steps.filter.outputs.changedFiles }}"

@@ -46,7 +46,7 @@ jobs:
           echo $output && \
           echo ::set-output name=directories::$output
       - name: test
-        run: echo "Start -- ${{ steps.filter.outputs.* }} -- End"
+        run: echo "Start -- ${{ steps.filter.outputs.directories }} -- End"
 #          echo "${{ steps.filter.outputs.changedFiles }}"
 #          echo "$(go run detectChanges.go $test)"
 

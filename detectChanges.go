@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 )
@@ -27,5 +28,7 @@ func main() {
 			}
 		}
 		fmt.Println(output)
+		log.SetOutput(os.Stdout)
+		fmt.Print(output)
 	}
 }

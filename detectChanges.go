@@ -23,6 +23,7 @@ func main() {
 				}
 			}
 		}
+		fmt.Println(output)
 		// Send the results to the outputs of the github script step via echo command
 		formattedArg := fmt.Sprintf("::set-output name=changed_output::%+v", output)
 		cmd := exec.Command(app, formattedArg)

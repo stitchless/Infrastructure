@@ -25,7 +25,7 @@ jobs:
     runs-on: self-hosted
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
-      output1: ${{ steps.filter.outputs.output_directories }}
+      changed_directories: ${{ steps.filter.outputs.changed_output }}
     steps:
       # Checkout Repo
       - uses: actions/checkout@v2
@@ -42,13 +42,13 @@ jobs:
           working-directory: 'Deployments'
       - run: |
           test=${{ steps.filter.outputs.deployments_files }} && \
-          output=$(go run detectChanges.go $test) && \
-          echo $output && \
-          echo '::set-output name=output_directories::DERP'
+          changed_output=$(go run detectChanges.go $test) && \
+          echo $changed_output && \
+          echo '::set-output name=changed_output::$changed_output'
       - name: test
         run: |
           echo "Start -- ${{ steps.filter.outputs.deployments_files }} -- End" && \
-          echo "Start -- ${{ needs.changes.outputs.output1 }} -- End"
+          echo "Start -- ${{ needs.changes.outputs.changed_directories }} -- End"
 #          echo "${{ steps.filter.outputs.changedFiles }}"
 #          echo "$(go run detectChanges.go $test)"
 

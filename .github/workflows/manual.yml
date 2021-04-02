@@ -48,7 +48,7 @@ jobs:
       - name: test
         run: |
           echo "Start -- ${{ steps.filter.outputs.deployments_files }} -- End" && \
-          echo "Start -- ${{ needs.changes..outputs.output1 }} -- End"
+          echo "Start -- ${{ needs.changes.outputs.output1 }} -- End"
 #          echo "${{ steps.filter.outputs.changedFiles }}"
 #          echo "$(go run detectChanges.go $test)"
 

@@ -1,4 +1,3 @@
-//usr/bin/env go run $0 "$@"; exit
 package main
 
 import (
@@ -22,10 +21,10 @@ func main() {
 				}
 			}
 		}
-		//fmt.Println(output)
+		fmt.Println(output)
 		// Send the results to the outputs of the github script step via echo command
-		formattedArg := fmt.Sprintf("::set-output name=changed_output::%+v", output)
-		fmt.Println(formattedArg)
+		//formattedArg := fmt.Sprintf("::set-output name=changed_output::%+v", output)
+		//fmt.Println(formattedArg)
 		//cmd := exec.Command(app, formattedArg)
 		//stdout, err := cmd.Output()
 		//

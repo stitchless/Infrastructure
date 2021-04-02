@@ -43,9 +43,11 @@ jobs:
           test=${{ steps.filter.outputs.deployments_files }} && \
           output=$(go run detectChanges.go $test) && \
           echo $output && \
-          echo '::set-output name=directories::$output'
+          echo '::set-output name=output_directories::DERP'
       - name: test
-        run: echo "Start -- ${{ steps.filter.outputs.deployments_files }} -- End"
+        run: |
+          echo "Start -- ${{ steps.filter.outputs.deployments_files }} -- End" && \
+          echo "Start -- ${{ steps.filter.outputs.output_directories }} -- End"
 #          echo "${{ steps.filter.outputs.changedFiles }}"
 #          echo "$(go run detectChanges.go $test)"
 

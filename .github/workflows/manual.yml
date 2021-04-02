@@ -45,7 +45,7 @@ jobs:
         run: |
           input=${{ steps.filter.outputs.deployments_files }} && \
           echo $input && \
-          test=$(go run detectChanges.go $input) && \
+          test=$(go run detectChanges.go '$input') && \
           echo "::set-output name=changed_output::$test"
       - id: test
         run : |

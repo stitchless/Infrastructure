@@ -8,12 +8,12 @@ import (
 	"strings"
 )
 
-// test string: ["Deployments/adguard/020-Issuer.yaml","Deployments/hello-world/010-Namespace.yaml"]
+// test string: ["Deployments/adguard/020-Issuer.yaml","Deployments/hello-world/010-Namespace.yaml","Deployments/hello-world/010-Namespace.yaml"]
 func main() {
 	if len(os.Args) > 1 {
 		var arr []string
 		var uniqueDirectories []string
-		
+
 		dataJson := os.Args[1]
 		directories := make(map[string]string)
 
@@ -22,7 +22,6 @@ func main() {
 		for _, path := range arr {
 			directory := filepath.Dir(path)
 			if _, ok := directories[directory]; !ok {
-				fmt.Println("Found No Entry")
 				directories[directory] = directory
 				uniqueDirectories = append(uniqueDirectories, directory)
 			}

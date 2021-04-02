@@ -54,9 +54,10 @@ jobs:
   Matrix_Deployment:
     continue-on-error: true
     needs: Format_Changed_Directories
-    if: ${{ needs.changes.outputs.deployments == 'true' }}
+    if: ${{ needs.Format_Changed_Directories.outputs.deployments == 'true' }}
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
       - run: |
+          echo "Found The following edited files: ${{ needs.Format_Changed_Directories.outputs.deployments_files }}
           echo "Running Matrix to deploy: ${{ needs.Format_Changed_Directories.outputs.changed_directories }}"

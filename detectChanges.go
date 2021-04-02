@@ -22,7 +22,7 @@ func main() {
 			}
 		}
 		//fmt.Println(changedDirectories)
-		output := `["` + strings.Join(changedDirectories, `","`) + `]"`
+		output := `["` + strings.Join(changedDirectories, `","`) + `"]`
 		fmt.Println(output)
 	}
 }

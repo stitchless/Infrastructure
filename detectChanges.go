@@ -20,6 +20,6 @@ func main() {
 				}
 			}
 		}
-		fmt.Printf("%#v", output)
+		fmt.Printf("::set-output name=changed_output::%#v", output)
 	}
 }

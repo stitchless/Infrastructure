@@ -27,7 +27,7 @@ func main() {
 			}
 		}
 		// Format: ["values","values"]
-		output := `['` + strings.Join(uniqueDirectories, `','`) + `']`
+		output := `[{'` + strings.Join(uniqueDirectories, `','`) + `'}]`
 		fmt.Printf("%v", output)
 	}
 }

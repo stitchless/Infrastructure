@@ -54,8 +54,7 @@ jobs:
     if: ${{ needs.Format_Changed_Directories.outputs.deployments == 'true' }}
     runs-on: self-hosted
     strategy:
-      matrix:
-        deploy: ${{fromJson(needs.Format_Changed_Directories.outputs.unique_directories)}}
+      matrix: ${{fromJson(needs.Format_Changed_Directories.outputs.unique_directories)}}
     steps:
       - uses: actions/checkout@v2
       - run: |

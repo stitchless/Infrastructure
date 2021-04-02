@@ -43,7 +43,7 @@ jobs:
           working-directory: 'Deployments'
       - run: |
           input=${{ steps.filter.outputs.deployments_files }} && \
-          echo '$(go run detectChanges.go $input)'
+          echo $(go run detectChanges.go $input)
 #          echo $changed_output
 #          export 'changed_output=$changed_output' && \
 #          echo '::set-output name=changed_output::$(changed_output)'

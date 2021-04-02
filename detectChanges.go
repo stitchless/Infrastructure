@@ -33,5 +33,4 @@ func main() {
 		}
 		print(string(stdout))
 	}
-
 }

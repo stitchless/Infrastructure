@@ -21,7 +21,6 @@ func main() {
 				}
 			}
 		}
-		//fmt.Println(changedDirectories)
 		// Format: ["values","values"]
 		output := `["` + strings.Join(changedDirectories, `","`) + `"]`
 		fmt.Println(output)

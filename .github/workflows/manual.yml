@@ -34,7 +34,7 @@ jobs:
       - uses: dorny/paths-filter@v2.9.3
         id: filter
         with:
-          list-files: shell
+          list-files: json
           filters: |
             deployments:
               - added|modified: '**/*.yaml'
@@ -44,6 +44,7 @@ jobs:
       - id: script
         run: |
           input=${{ steps.filter.outputs.deployments_files }} && \
+          echo $input && \
           test=$(go run detectChanges.go $input) && \
           echo "::set-output name=changed_output::$test"
       - id: test

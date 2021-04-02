@@ -56,6 +56,9 @@ jobs:
     needs: Format_Changed_Directories
     if: ${{ needs.Format_Changed_Directories.outputs.deployments == 'true' }}
     runs-on: self-hosted
+    strategy:
+      matrix:
+        node: ${{ needs.Format_Changed_Directories.outputs.changed_directories }}
     steps:
       - uses: actions/checkout@v2
       - run: |

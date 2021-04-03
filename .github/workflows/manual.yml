@@ -53,8 +53,8 @@ jobs:
   # Uses the changes job to get the unique directories for each change found
   Matrix_Deployment:
     continue-on-error: true
-    needs: Format_Changed_Directories
-    if: ${{ needs.Format_Changed_Directories.outputs.deployments == 'true' }}
+    needs: format_changed_paths
+    if: ${{ needs.format_changed_paths.outputs.deployments == 'true' }}
     runs-on: self-hosted
 #    strategy:
 #      matrix: ${{fromJson(needs.Format_Changed_Directories.outputs.unique_directories)}}

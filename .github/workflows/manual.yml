@@ -45,6 +45,7 @@ jobs:
         run: |
           changedFilePaths='${{ steps.filter.outputs.deployments_files }}' && \
           uniqueDirectories=$(go run detectChanges.go $changedFilePaths) && \
+          echo uniqueDirectories && \
           echo "::set-output name=unique_directories::$uniqueDirectories"
       - id: output
         run: |

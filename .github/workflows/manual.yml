@@ -20,7 +20,7 @@ on:
 jobs:
 
   # Gets the changed yaml files from the Deployments directory
-  Format_Changed_Directories:
+  format_changed_paths:
     continue-on-error: false
     runs-on: self-hosted
     outputs:
@@ -61,6 +61,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          echo "Found The following edited files: ${{ needs.Format_Changed_Directories.outputs.deployments_files }}" && \
-          echo "Running Matrix to deploy: ${{fromJson(needs.Format_Changed_Directories.outputs.output_directories)}}"
+          echo "${{ needs.Format_Changed_Directories.outputs.deployments_files }}"
+#          echo "Running Matrix to deploy: ${{fromJson(needs.Format_Changed_Directories.outputs.output_directories)}}"
 #          echo "Deploy: ${{ matrix.include }}"

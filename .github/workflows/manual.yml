@@ -26,7 +26,7 @@ jobs:
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
       deployments_files: ${{ steps.filter.outputs.deployments_files }}
-      changed_directories: ${{ steps.filter.outputs.changed_output }}
+      output_directories: ${{ steps.filter.outputs.changed_output }}
     steps:
       # Checkout Repo
       - uses: actions/checkout@v2
@@ -44,9 +44,8 @@ jobs:
       - id: script
         run: |
           input='${{ steps.filter.outputs.deployments_files }}' && \
-          echo $input && \
-          test=$(go run detectChanges.go $input) && \
-          echo "::set-output name=changed_output::$test"
+          unique_directories=$(go run detectChanges.go $input) && \
+          echo "::set-output name=changed_output::$unique_directories"
       - id: test
         run: |
           echo ${{ steps.script.outputs.changed_output }}
@@ -62,6 +61,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          echo "Found The following edited files: ${{ needs.Format_Changed_Directories.outputs.deployments_files }}"
+          echo "Found The following edited files: ${{ needs.Format_Changed_Directories.outputs.deployments_files }}" && \
           echo "Running Matrix to deploy: ${{fromJson(needs.Format_Changed_Directories.outputs.output_directories)}}"
-          echo "Deploy: ${{ matrix.include }}"
+#          echo "Deploy: ${{ matrix.include }}"

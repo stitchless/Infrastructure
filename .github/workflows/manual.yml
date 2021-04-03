@@ -64,4 +64,4 @@ jobs:
       - run: |
           echo "${{ needs.format_changed_paths.outputs.deployments_files }}" && \
           echo "${{ needs.format_changed_paths.outputs.output_directories }}" && \
-          echo "Deploy: ${{ matrix.include }}"
+          echo "Deploy: ${{ matrix.direcotry }}"

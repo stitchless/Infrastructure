@@ -56,11 +56,12 @@ jobs:
     needs: format_changed_paths
     if: ${{ needs.format_changed_paths.outputs.deployments == 'true' }}
     runs-on: self-hosted
-#    strategy:
-#      matrix: ${{fromJson(needs.Format_Changed_Directories.outputs.unique_directories)}}
+    strategy:
+      matrix:
+        include: ${{needs.format_changed_paths.outputs.output_directories}}
     steps:
       - uses: actions/checkout@v2
       - run: |
           echo "${{ needs.format_changed_paths.outputs.deployments_files }}" && \
-          echo "${{ needs.format_changed_paths.outputs.output_directories }}"
-#          echo "Deploy: ${{ matrix.include }}"
+          echo "${{ needs.format_changed_paths.outputs.output_directories }}" && \
+          echo "Deploy: ${{ matrix.include }}"

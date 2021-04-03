@@ -56,9 +56,9 @@ jobs:
     # Runs on self hosted until testing is complete
     runs-on: self-hosted
     # Matrix based on found unique directories in order to update any and all deployments
-    strategy:
-      matrix:
-        include: ${{fromJson(needs.format_changed_paths.outputs.output_directories)}}
+#    strategy:
+#      matrix:
+#        include: ${{fromJson(needs.format_changed_paths.outputs.output_directories)}}
     steps:
       - uses: actions/checkout@v2
       - run: |

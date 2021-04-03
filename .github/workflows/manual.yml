@@ -26,7 +26,7 @@ jobs:
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
       deployments_files: ${{ steps.filter.outputs.deployments_files }}
-      output_directories: ${{ steps.script.outputs.unique_directories }}
+      changed_directories: ${{ steps.filter.outputs.changed_output }}
     steps:
       # Checkout Repo
       - uses: actions/checkout@v2
@@ -43,13 +43,12 @@ jobs:
           working-directory: 'Deployments'
       - id: script
         run: |
-          changedFilePaths='${{ steps.filter.outputs.deployments_files }}' && \
-          uniqueDirectories=$(go run detectChanges.go $changedFilePaths) && \
-          echo uniqueDirectories && \
-          echo "::set-output name=unique_directories::$uniqueDirectories"
-      - id: output
+          input=${{ steps.filter.outputs.deployments_files }} && \
+          test=$(go run detectChanges.go $input) && \
+          echo '::set-output name=changed_output::$(echo $test)'
+      - id: test
         run: |
-          echo ${{ steps.script.outputs.output_directories }}
+          echo ${{ steps.script.outputs.changed_output }}
 
   # Uses the changes job to get the unique directories for each change found
   Matrix_Deployment:

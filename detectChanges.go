@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
 // test string: ["Deployments/adguard/020-Issuer.yaml","Deployments/hello-world/010-Namespace.yaml","Deployments/hello-world/010-Namespace.yaml"]
@@ -26,8 +27,8 @@ func main() {
 			}
 		}
 		// Format: {"include":["values","values"]}
-		//output := `{'include':['` + strings.Join(uniqueDirectories, `','`) + `']}`
-		output, _ := json.Marshal(uniqueDirectories)
+		output := `{'include':['` + strings.Join(uniqueDirectories, `','`) + `']}`
+		//output, _ := json.Marshal(uniqueDirectories)
 		fmt.Printf("%v", string(output))
 	}
 }

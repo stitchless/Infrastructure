@@ -1,7 +1,7 @@
-# Namespace.yaml Final test
+# Namespace.yaml test
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: adguard
+  name: helloworld
   labels:
     cert-manager-tls: nekomade-com

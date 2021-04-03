@@ -1,7 +1,6 @@
-# Namespace.yaml Final test
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: adguard
+  name: ps-server
   labels:
     cert-manager-tls: nekomade-com

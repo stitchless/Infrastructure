@@ -1,0 +1,17 @@
+# This is to set two accessible IP addresses
+apiVersion: v1
+kind: Service
+metadata:
+  name: ps-server-lb
+  namespace: ps-server
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: ps.nekomade.com
+    external-dns.alpha.kubernetes.io/ttl: "120" #optional
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 8088
+      targetPort: 22001
+  selector:
+    app: ps-server

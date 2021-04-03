@@ -1,9 +1,9 @@
-# Issuer.yaml test
+# issuer.yaml
 apiVersion: cert-manager.k8s.cloudflare.com/v1
 kind: OriginIssuer
 metadata:
   name: prod-issuer
-  namespace: adguard
+  namespace: helloworld
 spec:
   requestType: OriginECC
   auth:

@@ -1,9 +1,8 @@
-# Issuer.yaml test
 apiVersion: cert-manager.k8s.cloudflare.com/v1
 kind: OriginIssuer
 metadata:
   name: prod-issuer
-  namespace: adguard
+  namespace: ps-server
 spec:
   requestType: OriginECC
   auth:

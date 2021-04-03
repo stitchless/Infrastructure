@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ps-server
+  namespace: ps-server
+  labels:
+    app: ps-server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ps-server
+  template:
+    metadata:
+      labels:
+        app: ps-server
+    spec:
+      volumes:
+        - name: ps-server-data
+          persistentVolumeClaim:
+            claimName: ps-server-volume-claim
+      containers:
+        - name: ps-server
+          image: localhost:32000/ps-server:registry
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 22001
+          volumeMounts:
+            - name: ps-server-data
+              subPath: data
+              mountPath: /usr/psserverd/Projects
+            - name: ps-server-data
+              subPath: logs
+              mountPath: /usr/psserverd/log

@@ -66,7 +66,7 @@ microk8s status --wait-ready
 
 # jq (Optional) used to confirm cloudflare origin issuer
 # `kubectl describe` can be used later on to also verify as well
-sudo snap install jq --classic
+sudo snap install jq
 
 # If rbac.authorization.k8s.io/v1, or  rbac.authorization.k8s.io/v1beta1 is shown you have RBAC enabled
 kubectl api-versions
@@ -77,11 +77,11 @@ kubectl api-versions
 Most of these add-ons are general use to make life easier
 ```bash
 microk8s enable \
-  dashboard \
+  rbac \
   dns \
-  ingress \
+  ingress \ # or your choice of ingress controller
   metallb \ # optional
-  prometheus \ # WIP
+  prometheus \ # optional
   storage # WIP
 ```
 
@@ -161,16 +161,6 @@ kubectl get pods --namespace cert-manager
 <br>
 
 ## [Cloudflare Origin CA Issuer](https://github.com/cloudflare/origin-ca-issuer)
-<!--This step will reqire you to find your cloudflare API token.
-1. Log into your [cloudflate](https://dash.cloudflare.com/profile/api-tokens) account and access your profile
-2. Select Create Token and choose Edit zone DNS Use Tempalte
-3. Add the following permissions:
-   1. Zone > DNS > Edit
-   2. Zone > Zone > Read
-4. Add the following Zone Resources
-   1. Include > Specific Zone > YourTargetTLD
-5. Create your token and copy the key-->
-
 ```bash
 # Download the offical cloudflare origin-ca-issuer repo
 git clone https://github.com/cloudflare/origin-ca-issuer.git

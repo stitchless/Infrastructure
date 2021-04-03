@@ -62,5 +62,5 @@ jobs:
       - uses: actions/checkout@v2
       - run: |
           echo "${{ needs.format_changed_paths.outputs.deployments_files }}" && \
-          echo "Running Matrix to deploy: ${{needs.format_changed_paths.outputs.output_directories}}"
+          echo "${{ needs.format_changed_paths.outputs.output_directories }}"
 #          echo "Deploy: ${{ matrix.include }}"

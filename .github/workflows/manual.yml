@@ -54,7 +54,7 @@ jobs:
     # Ensure changes have been made before attempting deployment
     if: ${{ needs.format_changed_paths.outputs.deployments == 'true' }}
     # Runs on self hosted until testing is complete
-    runs-on: self-hosted
+    runs-on: ubuntu-20.04
     # Matrix based on found unique directories in order to update any and all deployments
     strategy:
       matrix:

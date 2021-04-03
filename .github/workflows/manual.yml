@@ -26,7 +26,7 @@ jobs:
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
       deployments_files: ${{ steps.filter.outputs.deployments_files }}
-      output_directories: ${{ steps.filter.outputs.changed_output }}
+      output_directories: ${{ steps.script.outputs.changed_output }}
     steps:
       # Checkout Repo
       - uses: actions/checkout@v2

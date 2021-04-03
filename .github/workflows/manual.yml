@@ -58,7 +58,7 @@ jobs:
     # Matrix based on found unique directories in order to update any and all deployments
     strategy:
       matrix:
-        include: ${{fromJson(needs.format_changed_paths.outputs.output_directories)}}
+        direcotry: ["${{needs.format_changed_paths.outputs.output_directories}}"]
     steps:
       - uses: actions/checkout@v2
       - run: |

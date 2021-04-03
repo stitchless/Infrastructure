@@ -60,10 +60,8 @@ jobs:
       matrix:
         directory: ${{fromJson(needs.format_changed_paths.outputs.output_directories)}}
     steps:
-      - name: checkout Repo
+      - name: Deployment for ${{ matrix.directory }}
         uses: actions/checkout@v2
-        run: |
-          echo "Deployment for: ${{ matrix.directory }}"
 
       - name: Replace Secrets
         uses: actions/setup-go@v2.1.3
@@ -76,6 +74,7 @@ jobs:
           cachet_db_user: ${{ secrets.CACHET_DB_USER }}
           cachet_db_pass: ${{ secrets.CACHET_DB_PASS }}
           phonito_api: ${{ secrets.PHONITO_API }}
+      - name: Run replacement script
         run: |
           go run main.go
 

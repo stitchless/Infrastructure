@@ -61,6 +61,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          echo "${{ needs.Format_Changed_Directories.outputs.deployments_files }}"
+          echo "${{ needs.format_changed_paths.outputs.deployments_files }}"
 #          echo "Running Matrix to deploy: ${{fromJson(needs.Format_Changed_Directories.outputs.output_directories)}}"
 #          echo "Deploy: ${{ matrix.include }}"

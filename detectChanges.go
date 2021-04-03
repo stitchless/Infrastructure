@@ -26,6 +26,6 @@ func main() {
 		}
 
 		output, _ := json.Marshal(&uniqueDirectories)
-		fmt.Printf("%v", string(output))
+		fmt.Printf("%v", output)
 	}
 }

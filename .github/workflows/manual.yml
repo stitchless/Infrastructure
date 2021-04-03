@@ -6,31 +6,27 @@ name: Manual workflow
 # or API.
 on:
   push:
-#   workflow_dispatch:
-#     # Inputs the workflow accepts.
-#     inputs:
-#       name:
-#         # Friendly description to be shown in the UI instead of 'name'
-#         description: 'Person to greet'
-#         # Default value if no value is explicitly provided
-#         default: 'World'
-#         # Input has to be provided for the workflow to run
-#         required: true
+    branches: [ dev, main ]
 
 jobs:
-
   # Gets the changed yaml files from the Deployments directory
   format_changed_paths:
+    # If error is found, then the deployment will not succeed, so the workflow will stop
     continue-on-error: false
+    # For speed and testing, will move to github hosted after
     runs-on: self-hosted
+    # Provide Output for other steps and jobs to consume
     outputs:
       deployments: ${{ steps.filter.outputs.deployments }}
       deployments_files: ${{ steps.filter.outputs.deployments_files }}
-      output_directories: ${{ steps.script.outputs.changed_output }}
+      output_directories: ${{ steps.parse_paths.outputs.changed_output }}
+    # Checks out the repo
+    # Looks for any changed yaml file in the Deployments directory
+    # Compiles a list of unique deployment directories and saves them as a json output format
     steps:
       # Checkout Repo
       - uses: actions/checkout@v2
-      # Set up Filter
+      # Set up and run filter looking for altered yaml files
       - uses: dorny/paths-filter@v2.9.3
         id: filter
         with:
@@ -41,21 +37,25 @@ jobs:
           base: 'dev'
           initial-fetch-depth: '10'
           working-directory: 'Deployments'
-      - id: script
+      # Passes in the files paths to find unique paths and saved results to a job output
+      - id: parse_paths
         run: |
           input='${{ steps.filter.outputs.deployments_files }}' && \
-          unique_directories=$(go run detectChanges.go $input) && \
+          unique_directories=$(echo $(go run detectChanges.go $input) | sed 's/ //g' ) && \
           echo "::set-output name=changed_output::$unique_directories"
-      - id: test
-        run: |
-          echo ${{ steps.script.outputs.changed_output }}
 
-  # Uses the changes job to get the unique directories for each change found
+
+  # Uses the job to get the unique directories for each change found to deploy each edited unique directory
   Matrix_Deployment:
+    # If there is an error, others could still succeed
     continue-on-error: true
+    # Requires the previous job to get output data
     needs: format_changed_paths
+    # Ensure changes have been made before attempting deployment
     if: ${{ needs.format_changed_paths.outputs.deployments == 'true' }}
+    # Runs on self hosted until testing is complete
     runs-on: self-hosted
+    # Matrix based on found unique directories in order to update any and all deployments
     strategy:
       matrix:
         include: ${{fromJson(needs.format_changed_paths.outputs.output_directories)}}

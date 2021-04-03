@@ -7,7 +7,6 @@ import (
 	"path/filepath"
 )
 
-// test string: ["Deployments/adguard/020-Issuer.yaml","Deployments/hello-world/010-Namespace.yaml","Deployments/hello-world/010-Namespace.yaml"]
 func main() {
 	if len(os.Args) > 1 {
 		var arr []string
@@ -25,8 +24,7 @@ func main() {
 				uniqueDirectories = append(uniqueDirectories, directory)
 			}
 		}
-		// Format: {"include":["values","values"]}
-		//output := `{'include':['` + strings.Join(uniqueDirectories, `','`) + `']}`
+
 		output, _ := json.Marshal(&uniqueDirectories)
 		fmt.Printf("%v", string(output))
 	}

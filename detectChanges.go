@@ -28,6 +28,6 @@ func main() {
 		// Format: {"include":["values","values"]}
 		//output := `{'include':['` + strings.Join(uniqueDirectories, `','`) + `']}`
 		output, _ := json.Marshal(uniqueDirectories)
-		fmt.Printf("%v", output)
+		fmt.Printf("%v", string(output))
 	}
 }

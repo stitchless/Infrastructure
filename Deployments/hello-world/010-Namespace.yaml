@@ -1,4 +1,4 @@
-# Namespace.yaml ssasd
+# Namespace.yaml ssas
 apiVersion: v1
 kind: Namespace
 metadata:

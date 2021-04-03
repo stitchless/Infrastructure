@@ -8,11 +8,11 @@ import (
 )
 
 func unique(intSlice []string) []string {
-	keys := make(map[string]bool)
+	keys := make(map[string]string)
 	var list []string
 	for _, entry := range intSlice {
 		if _, value := keys[entry]; !value {
-			keys[entry] = true
+			keys[entry] = entry
 			list = append(list, entry)
 		}
 	}
@@ -27,14 +27,13 @@ func main() {
 		dataJson := os.Args[1]
 
 		_ = json.Unmarshal([]byte(dataJson), &arr)
-		arr = unique(arr)
 
 		for _, path := range arr {
 			directory := filepath.Dir(path)
 			uniqueDirectories = append(uniqueDirectories, directory)
 		}
 
-		output, _ := json.Marshal(&uniqueDirectories)
+		output, _ := json.Marshal(unique(uniqueDirectories))
 		fmt.Printf("%v", string(output))
 	}
 }

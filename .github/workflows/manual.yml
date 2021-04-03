@@ -53,8 +53,8 @@ jobs:
     needs: Format_Changed_Directories
     if: ${{ needs.Format_Changed_Directories.outputs.deployments == 'true' }}
     runs-on: self-hosted
-    strategy:
-      matrix: ${{fromJson(needs.Format_Changed_Directories.outputs.unique_directories)}}
+#    strategy:
+#      matrix: ${{fromJson(needs.Format_Changed_Directories.outputs.unique_directories)}}
     steps:
       - uses: actions/checkout@v2
       - run: |

@@ -48,7 +48,7 @@ jobs:
           echo "::set-output name=unique_directories::$uniqueDirectories"
       - id: output
         run: |
-          echo ${{fromJson(steps.script.outputs.output_directories)}}
+          echo ${{ steps.script.outputs.output_directories }}
 
   # Uses the changes job to get the unique directories for each change found
   Matrix_Deployment:

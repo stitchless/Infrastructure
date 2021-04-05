@@ -7,7 +7,6 @@ metadata:
     external-dns.beta.kubernetes.io/hostname: hello.nekomade.com
     external-dns.beta.kubernetes.io/ttl: "120"
 spec:
-  type: LoadBalancer
   ports:
     - name: http
       port: 80

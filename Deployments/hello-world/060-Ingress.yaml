@@ -11,9 +11,10 @@ spec:
   tls:
     - hosts:
         - hello.nekomade.com
-      secretName: helloworld-tls
+      secretName: nekomade-tls
   rules:
-    - http:
+    - host: hello.nekomade.com
+      http:
         paths:
           - path: /
             pathType: Prefix

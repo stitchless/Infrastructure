@@ -60,7 +60,7 @@ jobs:
       matrix:
         directory: ${{fromJson(needs.format_changed_paths.outputs.output_directories)}}
     steps:
-      - name: Deployment for ${{ matrix.directory }}
+      - name: Deployment for both Force and Kustomization
         uses: actions/checkout@v2
 
       - name: Replace Secrets
@@ -78,10 +78,20 @@ jobs:
         run: |
           go run main.go
 
-      - name: Deploy ${{ matrix.directory }}
+      - name: Deploy Kubernetes using Kubectl (-f)
+        if: ${{ matrix.directory.force != "null" }}
         uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
           KUBECTL_VERSION: "^1.20"
         with:
-          args: apply ${{ matrix.directory }}
+          args: apply ${{ matrix.directory.force }}
+
+      - name: Deploy Kubernetes using Kubectl (-k)
+        if: ${{ matrix.directory.kustom != "null" }}
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+          KUBECTL_VERSION: "^1.20"
+        with:
+          args: apply ${{ matrix.directory.force }}

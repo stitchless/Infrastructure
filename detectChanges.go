@@ -9,8 +9,8 @@ import (
 )
 
 type deployment struct {
-	deployType string `json:"type"`
-	path       string `json:"path"`
+	Force  []string `json:"force"`
+	Kustom []string `json:"kustom"`
 }
 
 type uniqueDir struct {
@@ -42,10 +42,9 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("'%v'", uniqueJson)
 
-		//output, _ := json.Marshal(uniqueJson)
-		//fmt.Printf("Marshalled Json: %v", string(output))
+		output, _ := json.Marshal(uniqueJson)
+		fmt.Printf("Marshalled Json: %v", string(output))
 	}
 }
 
@@ -63,6 +62,8 @@ func unique(intSlice uniqueDir) []string {
 
 // Json Setup
 func (paths uniqueDir) setupJson() ([]deployment, error) {
+	var force []string
+	var kustom []string
 	workDir, err := os.Getwd()
 	if err != nil {
 		return nil, err
@@ -72,10 +73,16 @@ func (paths uniqueDir) setupJson() ([]deployment, error) {
 		kustomizeFile := filepath.Join(workDir, path, "kustomization.yaml")
 
 		if _, err = os.Stat(kustomizeFile); err == nil {
-			outputJson = append(outputJson, deployment{deployType: "-k", path: "./" + path})
+			kustom = append(kustom, "-k ./" + path)
 		} else {
-			outputJson = append(outputJson, deployment{deployType: "-f", path: "./" + path})
+
+			force = append(force, "-f ./" + path)
 		}
 	}
+	outputJson = append(outputJson, deployment{Force: force, Kustom: kustom})
 	return outputJson, nil
 }
+
+//func (jsonValue deployment) testJson() (string, error) {
+// if outputJson
+//}

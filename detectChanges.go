@@ -72,9 +72,9 @@ func (paths uniqueDir) setupJson() ([]deployment, error) {
 		kustomizeFile := filepath.Join(workDir, path, "kustomization.yaml")
 
 		if _, err = os.Stat(kustomizeFile); err == nil {
-			kustom = append(kustom, "-k ./" + path)
+			kustom = append(kustom, "-k " + path)
 		} else {
-			force = append(force, "-f ./" + path)
+			force = append(force, "-f " + path)
 		}
 	}
 	outputJson = append(outputJson, deployment{Force: force, Kustom: kustom})

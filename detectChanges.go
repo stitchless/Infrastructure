@@ -38,13 +38,12 @@ func main() {
 
 		// Setup Json Structure
 		uniqueJson, err := uniqueDirectories.setupJson()
-		//fmt.Printf("Unmarshaled Json: %v\n", uniqueJson)
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		output, _ := json.Marshal(uniqueJson)
-		fmt.Printf("Marshalled Json: %v", string(output))
+		fmt.Printf("%v", string(output))
 	}
 }
 
@@ -75,7 +74,6 @@ func (paths uniqueDir) setupJson() ([]deployment, error) {
 		if _, err = os.Stat(kustomizeFile); err == nil {
 			kustom = append(kustom, "-k ./" + path)
 		} else {
-
 			force = append(force, "-f ./" + path)
 		}
 	}

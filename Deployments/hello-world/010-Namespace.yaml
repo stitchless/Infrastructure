@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   name: helloworld
   labels:
-    cert-manager-tls: helloworld-com
+    cert-manager-tls: nekomade-com

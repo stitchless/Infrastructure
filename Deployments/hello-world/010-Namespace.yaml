@@ -1,4 +1,4 @@
-# Namespace.yaml
+# Namespace.yaml -f
 apiVersion: v1
 kind: Namespace
 metadata:

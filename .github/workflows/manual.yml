@@ -61,8 +61,7 @@ jobs:
     # Matrix based on found unique directories in order to update any and all deployments
     strategy:
       matrix:
-        force: ${{fromJson(needs.format_changed_paths.outputs.output_directories.force)}}
-        kustom: ${{fromJson(needs.format_changed_paths.outputs.output_directories.kustomize)}}
+        args: ${{fromJson(needs.format_changed_paths.outputs.output_directories)}}
     steps:
       - name: Deployment for both Force and Kustomization
         uses: actions/checkout@v2
@@ -82,11 +81,10 @@ jobs:
         run: |
           go run main.go
 
-      - name: Deploy Kubernetes using Kubectl (-f)
-#        if: ${{ matrix.force != "" }}
+      - name: Deploy Kubernetes using Kubectl
         uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
           KUBECTL_VERSION: "^1.20"
         with:
-          args: apply ${{ matrix.force }}
+          args: apply ${{ matrix.args }}

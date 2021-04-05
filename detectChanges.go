@@ -35,14 +35,19 @@ func main() {
 
 		// Get only unique paths
 		uniqueDirectories.name = unique(uniqueDirectories)
-
-		// Setup Json Structure
-		uniqueJson, err := uniqueDirectories.setupJson()
+		// Setup Args from Paths
+		outputArgs, err := uniqueDirectories.setupArgs()
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		output, _ := json.Marshal(uniqueJson)
+		// Setup Json Structure
+		//uniqueJson, err := uniqueDirectories.setupJson()
+		//if err != nil {
+		//	log.Fatal(err)
+		//}
+
+		output, _ := json.Marshal(outputArgs)
 		fmt.Printf("%v", string(output))
 	}
 }
@@ -58,11 +63,8 @@ func unique(intSlice uniqueDir) []string {
 	}
 	return list
 }
-
-// Json Setup
-func (paths uniqueDir) setupJson() ([]deployment, error) {
-	var force []string
-	var kustom []string
+func (paths uniqueDir) setupArgs() ([]string, error){
+	var localSlice []string
 	workDir, err := os.Getwd()
 	if err != nil {
 		return nil, err
@@ -70,16 +72,35 @@ func (paths uniqueDir) setupJson() ([]deployment, error) {
 
 	for _, path := range paths.name {
 		kustomizeFile := filepath.Join(workDir, path, "kustomization.yaml")
-
 		if _, err = os.Stat(kustomizeFile); err == nil {
-			kustom = append(kustom, "-k " + path)
+			localSlice = append(localSlice, "-k " + path)
 		} else {
-			force = append(force, "-f " + path)
+			localSlice = append(localSlice, "-f " + path)
 		}
 	}
-	outputJson = append(outputJson, deployment{Force: force, Kustom: kustom})
-	return outputJson, nil
+	return localSlice, nil
 }
+// Json Setup
+//func (paths uniqueDir) setupJson() ([]deployment, error) {
+//	var force []string
+//	var kustom []string
+//	workDir, err := os.Getwd()
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	for _, path := range paths.name {
+//		kustomizeFile := filepath.Join(workDir, path, "kustomization.yaml")
+//
+//		if _, err = os.Stat(kustomizeFile); err == nil {
+//			kustom = append(kustom, "-k " + path)
+//		} else {
+//			force = append(force, "-f " + path)
+//		}
+//	}
+//	outputJson = append(outputJson, deployment{Force: force, Kustom: kustom})
+//	return outputJson, nil
+//}
 
 //func (jsonValue deployment) testJson() (string, error) {
 // if outputJson

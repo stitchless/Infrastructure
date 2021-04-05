@@ -43,6 +43,9 @@ jobs:
           input='${{ steps.filter.outputs.deployments_files }}' && \
           unique_directories=$(echo $(go run detectChanges.go $input) | sed 's/ //g' ) && \
           echo "::set-output name=changed_output::$unique_directories"
+      - id: output
+        run: |
+          echo ${{fromJson(steps.parse_paths.changed_output)}}
 
   # Replace all found enviorment variables
   # Uses the job to get the unique directories for each change found to deploy each edited unique directory

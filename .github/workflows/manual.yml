@@ -60,7 +60,9 @@ jobs:
     runs-on: ubuntu-20.04
     # Matrix based on found unique directories in order to update any and all deployments
     strategy:
-      matrix: ${{fromJson(needs.format_changed_paths.outputs.output_directories.force)}}
+      matrix:
+        force: ${{fromJson(needs.format_changed_paths.outputs.output_directories.force)}}
+        kustom: ${{fromJson(needs.format_changed_paths.outputs.output_directories.kustomize)}}
     steps:
       - name: Deployment for both Force and Kustomization
         uses: actions/checkout@v2

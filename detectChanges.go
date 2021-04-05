@@ -42,7 +42,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("%v", uniqueJson)
+		fmt.Printf("'%v'", uniqueJson)
 
 		//output, _ := json.Marshal(uniqueJson)
 		//fmt.Printf("Marshalled Json: %v", string(output))

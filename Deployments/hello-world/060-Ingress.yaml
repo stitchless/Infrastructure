@@ -4,7 +4,6 @@ metadata:
   name: hello-kubernetes
   namespace: helloworld
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/issuer: prod-issuer # required
     cert-manager.io/issuer-kind: OriginIssuer # Required
     cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com # Required
@@ -12,7 +11,7 @@ spec:
   tls:
     - hosts:
         - hello.nekomade.com
-      secretName: nekomade-tls
+      secretName: helloworld-tls
   rules:
     - http:
         paths:

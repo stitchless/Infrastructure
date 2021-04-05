@@ -16,8 +16,7 @@ spec:
       # cert-manager will create this secret (Referenced from the cert that was previously created)
       secretName: ps-server-tls
   rules:
-    - host: ps.nekomade.com
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix

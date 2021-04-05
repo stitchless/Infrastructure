@@ -79,16 +79,7 @@ jobs:
           go run main.go
 
       - name: Deploy Kubernetes using Kubectl (-f)
-        if: ${{ matrix.directory.force != "" }}
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-          KUBECTL_VERSION: "^1.20"
-        with:
-          args: apply ${{ matrix.directory.force }}
-
-      - name: Deploy Kubernetes using Kubectl (-k)
-        if: ${{ matrix.directory.kustom != "" }}
+#        if: ${{ matrix.directory.force != "" }}
         uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}

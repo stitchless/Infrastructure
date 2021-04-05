@@ -9,8 +9,8 @@ import (
 )
 
 type deployment struct {
-	Force  []string `json:"force"`
-	Kustom []string `json:"kustom"`
+	Force  []string `json:"force,omitempty"`
+	Kustom []string `json:"kustomize,omitempty"`
 }
 
 type uniqueDir struct {

@@ -43,6 +43,9 @@ jobs:
           input='${{ steps.filter.outputs.deployments_files }}' && \
           unique_directories=$(echo $(go run detectChanges.go $input) | sed 's/ //g' ) && \
           echo "::set-output name=changed_output::$unique_directories"
+      - id: output
+        run: |
+          echo ${{fromJson(steps.parse_paths.outputs.changed_output)}}
 
   # Replace all found enviorment variables
   # Uses the job to get the unique directories for each change found to deploy each edited unique directory
@@ -58,9 +61,9 @@ jobs:
     # Matrix based on found unique directories in order to update any and all deployments
     strategy:
       matrix:
-        directory: ${{fromJson(needs.format_changed_paths.outputs.output_directories)}}
+        args: ${{fromJson(needs.format_changed_paths.outputs.output_directories)}}
     steps:
-      - name: Deployment for ${{ matrix.directory }}
+      - name: Deployment for both Force and Kustomization
         uses: actions/checkout@v2
 
       - name: Replace Secrets
@@ -78,10 +81,10 @@ jobs:
         run: |
           go run main.go
 
-      - name: Deploy ${{ matrix.directory }}
+      - name: Deploy Kubernetes using Kubectl
         uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
           KUBECTL_VERSION: "^1.20"
         with:
-          args: apply -f ./${{ matrix.directory }}
+          args: apply ${{ matrix.args }}

@@ -31,7 +31,7 @@ spec:
             - containerPort: 80
             - containerPort: 443
             - containerPort: 853
-            - containerPort: 3000 # Comment out and update to close setup port
+#            - containerPort: 3000 # Comment out and update to close setup port
           volumeMounts:
             - name: adguard-data
               subPath: work

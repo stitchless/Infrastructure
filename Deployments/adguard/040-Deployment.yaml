@@ -26,6 +26,8 @@ spec:
           image: adguard/adguardhome:latest
           ports:
             - containerPort: 53
+              hostIP: 158.69.157.242
+              hostPort: 53
             - containerPort: 67
             - containerPort: 68
             - containerPort: 80

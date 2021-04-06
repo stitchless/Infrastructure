@@ -25,8 +25,8 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: "true"
 spec:
-  type: LoadBalancer
-  loadBalancerIP: 158.69.157.242
+  type: ClusterIP
+#  loadBalancerIP: 158.69.157.242
   ports:
     - name: dns
       port: 53
@@ -38,3 +38,5 @@ spec:
       targetPort: 853
   selector:
     app: adguard-server
+  externalIPs:
+    - 158.69.157.242

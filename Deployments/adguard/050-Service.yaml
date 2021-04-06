@@ -25,7 +25,8 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: "true"
 spec:
-  type: ClusterIP
+  type: LoadBalancer
+  loadBalancerIP: 158.69.157.242
   ports:
     - name: dns
       port: 53

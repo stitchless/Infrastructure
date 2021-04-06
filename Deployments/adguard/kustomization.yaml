@@ -21,7 +21,7 @@ patchesJson6902:
   - target:
       kind: Service
       name: adguard-lb
-      version: v2
+      version: v1
     patch: |-
       - op: replace
         path: /spec/loadBalancerIP
@@ -32,7 +32,7 @@ patchesJson6902:
   - target:
       kind: Service
       name: adguard-lb-dns
-      version: v2
+      version: v1
     patch: |-
       - op: replace
         path: /spec/loadBalancerIP

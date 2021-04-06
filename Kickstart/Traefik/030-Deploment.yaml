@@ -27,9 +27,19 @@ spec:
       containers:
         - name: traefik
           image: traefik:v2.4
+          env:
+            - name: CF_API_EMAIL
+              value: my@mail.com
+            - name: CF_API_KEY
+              value: ${{ secrets.CF_API_KEY }}
+            - name:  CF_DNS_API_TOKEN
+              value: DNS:Edit-Token
+            - name: CF_ZONE_API_TOKEN
+              value: Zone:Read-Token
           args:
             - --api.insecure
             - --accesslog
+            - --dashboard=true
             - --entrypoints.web.Address=:8000
             - --entrypoints.websecure.Address=:4443
             - --providers.kubernetescrd

@@ -5,4 +5,5 @@
 Kickstart/*
 !Kickstart/External-DNS.yaml
 !Kickstart/Service-Key.yaml
+!kickstart/Traefik
 !Example/Verify-Setup.yaml

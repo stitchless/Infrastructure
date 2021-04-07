@@ -16,5 +16,7 @@ spec:
       containers:
         - name: hello-kubernetes
           image: paulbouwer/hello-kubernetes:1.10.0
+          args:
+            - --message="Nekomade.com is up owo"
           ports:
             - containerPort: 8080

@@ -5,12 +5,10 @@ metadata:
   name: adguard-lb
   namespace: adguard
   annotations:
-    metallb.universe.tf/allow-shared-ip: "true"
     external-dns.alpha.kubernetes.io/hostname: ad.nekomade.com
     external-dns.alpha.kubernetes.io/ttl: "120" #optional
 spec:
-  type: LoadBalancer
-  loadBalancerIP: 0.0.0.0
+  type: ClusterIP
   ports:
     - name: http
       port: 80
@@ -26,8 +24,8 @@ metadata:
   annotations:
     metallb.universe.tf/allow-shared-ip: "true"
 spec:
-  type: LoadBalancer
-  loadBalancerIP: 0.0.0.0
+  type: ClusterIP
+#  loadBalancerIP: 158.69.157.242
   ports:
     - name: dns
       port: 53
@@ -39,3 +37,5 @@ spec:
       targetPort: 853
   selector:
     app: adguard-server
+  externalIPs:
+    - 158.69.157.242

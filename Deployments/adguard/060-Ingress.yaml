@@ -8,12 +8,14 @@ metadata:
     cert-manager.io/issuer-kind: OriginIssuer
     cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
     nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
+    external-dns.alpha.kubernetes.io/hostname: ad.nekomade.com
+    external-dns.alpha.kubernetes.io/ttl: "120" #optional
 spec:
   tls:
     # specifying a host in the TLS section will tell cert-manager what
     # DNS SANs should be on the created certificate.
     - hosts:
-        - ad.nekomade.com
+      - ad.nekomade.com
       # cert-manager will create this secret (Referenced from the cert that was previously created)
       secretName: adguard-tls
   rules:

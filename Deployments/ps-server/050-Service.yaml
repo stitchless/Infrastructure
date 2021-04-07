@@ -3,14 +3,19 @@ kind: Service
 metadata:
   name: ps-server-lb
   namespace: ps-server
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: ps.nekomade.com
-    external-dns.alpha.kubernetes.io/ttl: "120" #optional
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - name: http
-      port: 8088
+      port: 80
+      targetPort: 22001
+    - name: https
+      port: 443
+      targetPort: 22001
+    - name: app
+      port: 22001
       targetPort: 22001
   selector:
     app: ps-server
+  externalIPs:
+    - 158.69.157.242

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ror-dedicated-server
+  namespace: rords
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ror-dedicated-server
+  template:
+    metadata:
+      labels:
+        app: ror-dedicated-server
+    spec:
+      containers:
+        - name: ror-dedicated-server
+          image: avivace/ror2server:latest
+          imagePullPolicy: Always
+          env:
+            - name: R2_PLAYERS
+              value: "8"
+            - name: R2_HEARTBEAT
+              value: "1"
+            - name: R2_HOSTNAME
+              value: "NEKOMADE owo"
+          ports:
+            - containerPort: 27015
+            - containerPort: 27016
+          volumeMounts:
+            - name: rords-data
+              subPath: config
+              mountPath: /home/steam/ror2-dedicated
+      volumes:
+        - name: rords-data
+          persistentVolumeClaim:
+            claimName: rords-volume-claim

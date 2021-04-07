@@ -3,7 +3,7 @@
 
 # Clear all kickstart except hardcoded examples
 Kickstart/*
-!Kickstart/External-DNS.yaml
+!Kickstart/External-DNS.yaml.old
 !Kickstart/Service-Key.yaml
 !kickstart/Traefik
 !Example/Verify-Setup.yaml

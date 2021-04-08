@@ -1,19 +1,28 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: ror-dedicated-server
+  name: rords-service
   namespace: rords
 spec:
+  type: ClusterIP
   ports:
-    - name: game
+    - name: gametcp
+      port: 27015
+      targetPort: 27015
+      protocol: TCP
+    - name: gameudp
       port: 27015
       targetPort: 27015
       protocol: UDP
-    - name: serverlist
+    - name: serverlisttcp
+      port: 27016
+      targetPort: 27016
+      protocol: TCP
+    - name: serverlistudp
       port: 27016
       targetPort: 27016
       protocol: UDP
   selector:
     app: ror-dedicated-server
   externalIPs:
-    - 158.69.157.240
+    - 167.114.208.198

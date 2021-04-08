@@ -4,9 +4,6 @@ kind: Service
 metadata:
   name: adguard-lb
   namespace: adguard
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: ad.nekomade.com
-    external-dns.alpha.kubernetes.io/ttl: "120" #optional
 spec:
   type: ClusterIP
   ports:
@@ -21,8 +18,6 @@ kind: Service
 metadata:
   name: adguard-lb-dns
   namespace: adguard
-  annotations:
-    metallb.universe.tf/allow-shared-ip: "true"
 spec:
   type: ClusterIP
 #  loadBalancerIP: 158.69.157.242

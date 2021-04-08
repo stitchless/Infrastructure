@@ -190,7 +190,7 @@ kubectl get -n origin-ca-issuer pod
 Create a yaml file as seen below and deploy it.
 
 ```yaml
-# External-DNS.yaml
+# External-DNS.yaml.old
 apiVersion: v1
 kind: ServiceAccount
 metadata:

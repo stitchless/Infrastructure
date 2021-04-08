@@ -1,0 +1,16 @@
+apiVersion: ceph.rook.io/v1
+kind: CephFilesystem
+metadata:
+  name: myfs
+  namespace: rords
+spec:
+  metadataPool:
+    replicated:
+      size: 3
+  dataPools:
+    - replicated:
+        size: 3
+  preserveFilesystemOnDelete: false
+  metadataServer:
+    activeCount: 1
+    activeStandby: true

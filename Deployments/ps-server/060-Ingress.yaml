@@ -3,20 +3,15 @@ kind: Ingress
 metadata:
   name: ps-server-ingress
   namespace: ps-server
-  annotations:
-    cert-manager.io/issuer: prod-issuer
-    cert-manager.io/issuer-kind: OriginIssuer
-    cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
 spec:
   tls:
-    # specifying a host in the TLS section will tell cert-manager what
-    # DNS SANs should be on the created certificate.
     - hosts:
         - ps.nekomade.com
       # cert-manager will create this secret (Referenced from the cert that was previously created)
-      secretName: ps-server-tls
+      secretName: nekoamde-tls
   rules:
-    - http:
+    - host: ps.nekomade.com
+      http:
         paths:
           - path: /
             pathType: Prefix
@@ -24,4 +19,4 @@ spec:
               service:
                 name: ps-server-lb
                 port:
-                  number: 8088
+                  number: 80

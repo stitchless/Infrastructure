@@ -1,6 +1,0 @@
-- op: replace
-  path: /spec/loadBalancerIP
-  valueFrom:
-    secretKeyRef:
-      name: ps-server-secrets
-      key: ps-server_ip

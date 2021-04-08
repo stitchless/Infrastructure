@@ -5,7 +5,7 @@ metadata:
   namespace: ps-server
 spec:
   # The secret name where cert-manager should store the signed certificate
-  secretName: ps-server-tls
+  secretName: nekomade-tls
   dnsNames:
     - ps.nekomade.com
   # Duation of the certificate

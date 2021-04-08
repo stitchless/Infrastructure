@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rords-pv
+  namespace: rords
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /mnt/local-volumes/rords
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - nekomade # Edit this to be an actual kubernetes name of your server
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rords-pvc
+  namespace: rords
+spec:
+  storageClassName: local-storage
+  volumeName: rords-pv
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi

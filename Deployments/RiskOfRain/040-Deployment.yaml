@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ror-dedicated-server
+  namespace: rords
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: ror-dedicated-server
+  template:
+    metadata:
+      labels:
+        app: ror-dedicated-server
+    spec:
+      nodeSelector:
+        dedicated: master
+      tolerations:
+        - key: dedicated
+          operator: Equal
+          value: master
+          effect: NoSchedule
+      containers:
+        - name: ror-dedicated-server
+          image: stitchless101/rors-server:latest
+          imagePullPolicy: Always
+          env:
+            - name: R2_PLAYERS
+              value: "8"
+            - name: R2_HEARTBEAT
+              value: "1"
+            - name: R2_HOSTNAME
+              value: "NEKOMADE owo"
+            - name: R2_ENABLE_MODS
+              value: "1"
+          ports:
+            - containerPort: 27015
+            - containerPort: 27016
+          volumeMounts:
+            - name: rords-data
+              mountPath: /home/steam/ror2-dedicated/entry.sh
+              subPath: entry.sh
+            - name: rords-data
+              mountPath: /home/steam/ror2-dedicated/default_config.cfg
+              subPath: default_config.cfg
+            - name: rords-data
+              mountPath: /home/steam/ror2-dedicated/mods
+              subPath: mods
+#          securityContext:
+#            allowPrivilegeEscalation: true
+#            runAsUser: 0
+      volumes:
+        - name: rords-data
+          persistentVolumeClaim:
+            claimName: rords-pvc

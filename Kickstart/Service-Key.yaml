@@ -11,3 +11,17 @@ type: Opaque
 data:
   key: |
     ${{ secrets.cf_origin_key }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: service-key
+  namespace: cert-manager
+  annotations:
+    kubed.appscode.com/sync: "cert-manager-tls=nekomade-com"
+type: kubernetes.io/tls
+data:
+  tls.crt: |
+    ${{ secrets.nekomade_crt }}
+  tls.key: |
+    ${{ secrets.nekoamde_key }}

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: service-key-tls
+  name: nekomade-tls
   namespace: default
   annotations:
     kubed.appscode.com/sync: "tls=nekomade-tls"

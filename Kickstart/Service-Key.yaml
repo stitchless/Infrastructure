@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: service-key
-  namespace: cert-manager
+  namespace: default
   annotations:
     kubed.appscode.com/sync: "cert-manager-tls=nekomade-com"
 type: Opaque

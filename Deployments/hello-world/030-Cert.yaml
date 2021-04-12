@@ -9,7 +9,7 @@ spec:
   dnsNames:
     - hello.nekomade.com
   # Duation of the certificate
-  duration: 168h
+  duration: 120h
   # Renew a day before the certificate expiration
   renewBefore: 24h
   # Reference the Origin CA Issuer you created above, which must be in the same namespace.

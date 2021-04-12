@@ -4,6 +4,7 @@ metadata:
   name: hello-kubernetes
   namespace: helloworld
 spec:
+  type: NodePort
   ports:
     - name: http
       port: 80

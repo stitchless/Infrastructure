@@ -34,7 +34,7 @@ jobs:
         env:
           cf_api_token: ${{ secrets.CF_API_TOKEN }}
           cf_origin_key: ${{ secrets.CF_ORIGIN_KEY }}
-          nekoamde_crt: ${{ secrets.NEKOMADE_CRT }}
+          nekomade_crt: ${{ secrets.NEKOMADE_CRT }}
           nekomade_key: ${{ secrets.NEKOMADE_KEY }}
         run: |
           go run main.go Kickstart

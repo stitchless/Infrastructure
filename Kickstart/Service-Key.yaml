@@ -24,4 +24,4 @@ data:
   tls.crt: |
     ${{ secrets.nekomade_crt }}
   tls.key: |
-    ${{ secrets.nekoamde_key }}
+    ${{ secrets.nekomade_key }}

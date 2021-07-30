@@ -3,16 +3,16 @@ kind: Ingress
 metadata:
   name: hello-kubernetes
   namespace: helloworld
-  annotations:
-    cert-manager.io/issuer: prod-issuer # required
-    cert-manager.io/issuer-kind: OriginIssuer # Required
-    cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com # Required
-    kubernetes.io/ingress.class: "nginx"
-#    external-dns.beta.kubernetes.io/hostname: hello.nekomade.com
-#    external-dns.beta.kubernetes.io/ttl: "120"
+#  annotations:
+#    cert-manager.io/issuer: prod-issuer # required
+#    cert-manager.io/issuer-kind: OriginIssuer # Required
+#    cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com # Required
+#    kubernetes.io/ingress.class: "nginx"
+##    external-dns.beta.kubernetes.io/hostname: hello.nekomade.com
+##    external-dns.beta.kubernetes.io/ttl: "120"
 spec:
   rules:
-    - host: hello.nekomade.com
+    - host: nekomade.com
       http:
         paths:
           - path: /
@@ -24,5 +24,5 @@ spec:
                   number: 80
   tls:
     - hosts:
-        - hello.nekomade.com
-      secretName: nekomade-tls
+        - nekomade.com
+      secretName: nekomade-com-tls

@@ -21,19 +21,29 @@ spec:
         - name: adguard-data
           persistentVolumeClaim:
             claimName: adguard-volume-claim
+        - name: cloudflare-root-ca
+          configMap:
+            name: cloudflare-root-ca.crt
+            defaultMode: 256
+            optional: false
       containers:
         - name: adguard-server
           image: adguard/adguardhome:latest
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 53
-              hostIP: 158.69.157.242
-              hostPort: 53
-            - containerPort: 67
-            - containerPort: 68
             - containerPort: 80
-            - containerPort: 443
-            - containerPort: 853
-#            - containerPort: 3000 # Comment out and update to close setup port
+            - containerPort: 53
+              protocol: TCP
+            - containerPort: 53
+              protocol: UDP
+            - containerPort: 8443
+              hostPort: 8443
+            - containerPort: 3000
+              protocol: TCP
+          lifecycle:
+            postStart:
+              exec:
+                command: [ "/bin/sh", "-c", "cd /etc/ssl/certs && cat origin_ca_rsa_root.pem >> ca-certificates.crt" ]
           volumeMounts:
             - name: adguard-data
               subPath: work
@@ -41,3 +51,6 @@ spec:
             - name: adguard-data
               subPath: conf
               mountPath: /opt/adguardhome/conf
+            - name: cloudflare-root-ca
+              subPath: origin_ca_rsa_root.pem
+              mountPath: /etc/ssl/certs/origin_ca_rsa_root.pem

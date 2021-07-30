@@ -3,29 +3,34 @@ kind: Ingress
 metadata:
   name: adguard-ingress
   namespace: adguard
-  annotations:
-    cert-manager.io/issuer: prod-issuer
-    cert-manager.io/issuer-kind: OriginIssuer
-    cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
-    nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For"
-    external-dns.alpha.kubernetes.io/hostname: ad.nekomade.com
-    external-dns.alpha.kubernetes.io/ttl: "120" #optional
+#  annotations:
+#    nginx.ingress.kubernetes.io/auth-tls-secret: adguard/nekomade-com-tls
+#    nginx.ingress.kubernetes.io/auth-tls-verify-client: optional_no_ca
+#    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: True
 spec:
   tls:
-    # specifying a host in the TLS section will tell cert-manager what
-    # DNS SANs should be on the created certificate.
-    - hosts:
+  - hosts:
       - ad.nekomade.com
-      # cert-manager will create this secret (Referenced from the cert that was previously created)
-      secretName: adguard-tls
+      - dns.nekomade.com
+    secretName: nekomade-com-tls
   rules:
     - host: ad.nekomade.com
       http:
         paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: adguard-lb
-                port:
-                  number: 80
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: adguard-http-https
+              port:
+                number: 8080
+    - host: dns.nekomade.com
+      http:
+        paths:
+        - path: /dns-query
+          pathType: Prefix
+          backend:
+            service:
+              name: adguard-http-https
+              port:
+                number: 8443

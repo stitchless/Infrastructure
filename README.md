@@ -186,7 +186,7 @@ kubectl get -n origin-ca-issuer pod
 
 <br>
 
-## [Enteral-DNS](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/cloudflare.md)
+## [Exteral-DNS](https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/cloudflare.md)
 Create a yaml file as seen below and deploy it.
 
 ```yaml
@@ -491,4 +491,56 @@ spec:
         - test.example.com
       # cert-manager will create this secret
       secretName: example-tls
+```
+
+
+____
+
+
+### adguard + tls
+Add a config map with cloudflare ca root cert
+https://developers.cloudflare.com/ssl/origin-configuration/origin-ca#4-required-for-some-add-cloudflare-origin-ca-root-certificates
+Name the key in the config map and write down the exact key name
+
+Create a mount path similar to
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cacheconnectsample
+spec:
+      containers:
+      - name: cacheconnectsample
+        image: cacheconnectsample:v1
+        volumeMounts:
+        - name: ca-pemstore
+          mountPath: /etc/ssl/certs/my-cert.pem
+          subPath: my-cert.pem
+          readOnly: false
+      volumes:
+      - name: ca-pemstore
+        configMap:
+          name: ca-pemstore
+```
+
+Once finished edit the deployment yaml to add:
+```yaml
+spec:
+  containers:
+    - name: auth
+      image: {{my-service-image}}
+      env:
+        - name: NODE_ENV
+          value: "docker-dev"
+      resources:
+        requests:
+          cpu: 100m
+          memory: 100Mi
+      ports:
+        - containerPort: 3000
+// ADD THIS SECTION
+    lifecycle:
+        postStart:
+          exec:
+            command: ["/bin/sh", "-c", "cd /etc/ssl/certs && cat youraddedrootca.pem >> ca-certificates.crt"]
 ```

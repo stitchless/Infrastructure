@@ -1,0 +1,8 @@
+secretGenerator:
+  - name: mysql-pass
+    namespace: dev
+    literals:
+      - password=TestingDevPassword
+resources:
+  - 010-Deployment.yaml
+  - 020-Services.yaml

@@ -1,36 +1,35 @@
-# This is to set two accessible IP addresses
 apiVersion: v1
 kind: Service
 metadata:
-  name: adguard-lb
+  name: adguard-http-https
   namespace: adguard
+  labels:
+    app: adguard-server
 spec:
-  type: ClusterIP
-  ports:
-    - name: http
-      port: 80
-      targetPort: 80
   selector:
     app: adguard-server
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 80
+    - name: https
+      port: 8443
+      targetPort: 8443
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: adguard-lb-dns
+  name: adguard-dns
   namespace: adguard
 spec:
-  type: ClusterIP
-#  loadBalancerIP: 158.69.157.242
+  type: LoadBalancer
   ports:
-    - name: dns
+    - name: udp
       port: 53
       protocol: UDP
-      targetPort: 53
-    - name: httpsdns
-      port: 853
-      protocol: UDP
-      targetPort: 853
+    - name: tcp
+      port: 53
+      protocol: TCP
   selector:
     app: adguard-server
-  externalIPs:
-    - 158.69.157.242

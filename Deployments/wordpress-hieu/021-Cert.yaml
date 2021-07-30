@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: adguard-crt
+  name: mysql-crt
   namespace: hieu-wordpress
 spec:
   # The secret name where cert-manager should store the signed certificate

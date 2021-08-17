@@ -25,7 +25,7 @@ Throughout this project I am using the latest stable tools I could find
 3. SSH access to your server (running Linux, assumed Ubuntu / Debian)
 4. Cloudflare as your CA and DNS provider
 5. Helm installed on your local computer
-6. Acces to cloudflare API and origin CA API
+6. Access to cloudflare API and origin CA API
 7. Assume you are splitting up your deployments across multiple namespaces
 8. A place to manage secrets (This example uses [secrethub](https://secrethub.io/)) (WIP)
     * This is used because it's a simple way deploy using secrets either from your IDE, or Github actions deployments

@@ -1,0 +1,28 @@
+# https://doc.traefik.io/traefik/v2.2/routing/providers/kubernetes-crd/#kind-ingressroute
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mysql-ingressroute
+  namespace: dev
+spec:
+  entryPoints:
+    - websecure
+    - web
+    - mysql
+  routes:
+  - match: Host(`mysql.nekomade.com`)
+    kind: Rule
+#    middlewares:
+#    - name: passtls
+#      namespace: dev
+    services:
+    - name: mysql-service
+      namespace: dev
+      kind: Service
+      port: 3306
+  tls:
+    secretName: nekomade-com-tls
+    options:
+      name: ""
+      namespace: dev
+    certResolver: letsencrypt

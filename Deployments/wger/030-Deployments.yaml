@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wger-server
+  namespace: wger
+  labels:
+    app: wger-server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: wger-server
+  template:
+    metadata:
+      labels:
+        app: wger-server
+    spec:
+      dnsPolicy: ClusterFirstWithHostNet
+      volumes:
+        - name: wger-data
+          persistentVolumeClaim:
+            claimName: wger-volume-claim
+        - name: config
+          configMap:
+            name: prod-env
+      containers:
+        - name: wger-server
+          image: wger/devel:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: web-ui
+          volumeMounts:
+            - name: wger-data
+              subPath: static
+              mountPath: /home/wger/static
+            - name: wger-data
+              subPath: media
+              mountPath: /home/wger/media
+        - name: db
+          image: postgres:12-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+              name: db
+          env:
+            - name: POSTGRES_USER
+              value: wger
+            - name: POSTGRES_PASSWORD
+              value: ksladhf9sd.f9sdhfsdnf#9sdf0s9df7gb
+            - name: POSTGRES_DB
+              value: wger
+          volumeMounts:
+            - name: wger-data
+              subPath: postgres-data
+              mountPath: /var/lib/postgresql/data/
+        - name: cache
+          image: redis:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6379
+              name: cache

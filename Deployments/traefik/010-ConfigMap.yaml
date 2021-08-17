@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudflare
+type: Opaque
+stringData:
+  dns-token: R6eJEGMJunmDTmuXx9A49vchqiTgrCAg64tgFvMw

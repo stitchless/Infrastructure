@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: adguard-test
+  namespace: adguard
+  labels:
+    method: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure, web
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.certresolver: letsencrypt
+    traefik.ingress.kubernetes.io/router.tls.domains.0.main: nekomade.com
+    traefik.ingress.kubernetes.io/router.tls.domains.0.sans: dns.nekoamde.com
+
+spec:
+  rules:
+    - host: dns.nekomade.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: dns-over-https-udp
+              port:
+                number: 8443

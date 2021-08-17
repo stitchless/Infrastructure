@@ -6,7 +6,10 @@ metadata:
   labels:
     app: postgres
 spec:
-  type: NodePort
+  type: LoadBalancer
+  loadBalancerIP: 158.69.157.240
+  externalIPs:
+    - 158.69.157.240
   ports:
     - port: 5432
   selector:

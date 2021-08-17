@@ -1,35 +1,66 @@
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: web-ui
+#  namespace: adguard
+#  labels:
+#    app: adguard-server
+#spec:
+#  type: ClusterIP
+#  ports:
+#    - name: http
+#      protocol: TCP
+#      port: 80
+#      targetPort: 53
+#  selector:
+#    app: adguard-server
+#---
 apiVersion: v1
 kind: Service
 metadata:
-  name: adguard-http-https
+  name: dns-over-https-udp
   namespace: adguard
-  labels:
-    app: adguard-server
+  annotations:
+    metallb.universe.tf/allow-shared-ip: adguard-server
+    traefik.ingress.kubernetes.io/service.passhostheader: "true"
 spec:
+  type: LoadBalancer
+  loadBalancerIP: 158.69.157.242
+  ports:
+    - name: https-udp
+      port: 8443
+      protocol: UDP
+      targetPort: 443
+    - name: dns-udp
+      port: 53
+      protocol: UDP
+      targetPort: 53
   selector:
     app: adguard-server
-  ports:
-    - name: http
-      protocol: TCP
-      port: 8080
-      targetPort: 80
-    - name: https
-      port: 8443
-      targetPort: 8443
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: adguard-dns
+  name: dns-over-https-tcp
   namespace: adguard
+  annotations:
+    metallb.universe.tf/allow-shared-ip: adguard-server
+    traefik.ingress.kubernetes.io/service.passhostheader: "true"
 spec:
   type: LoadBalancer
+  loadBalancerIP: 158.69.157.242
   ports:
-    - name: udp
-      port: 53
-      protocol: UDP
-    - name: tcp
+    - name: https-tcp
+      port: 443
+      protocol: TCP
+      targetPort: 443
+    - name: dns-tcp
       port: 53
       protocol: TCP
+      targetPort: 53
+    - name: port-3000
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
   selector:
     app: adguard-server

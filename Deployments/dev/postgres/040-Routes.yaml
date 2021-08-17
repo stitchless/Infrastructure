@@ -1,0 +1,27 @@
+# https://doc.traefik.io/traefik/v2.2/routing/providers/kubernetes-crd/#kind-ingressroute
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dev-postgres-1
+  namespace: dev
+spec:
+  entryPoints:
+    - postgres
+  routes:
+    - match: Host(`postgres.nekomade.com`)
+      kind: Rule
+#      middlewares:
+#      - name: passtls
+#        namespace: adguard
+      services:
+        - name: postgres
+          namespace: dev
+          kind: Service
+          port: 5432
+          scheme: http
+  tls:
+    secretName: nekomade-com-tls
+    options:
+      name: ""
+      namespace: dev
+    certResolver: letsencrypt

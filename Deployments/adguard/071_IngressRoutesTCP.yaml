@@ -1,0 +1,14 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: adgaurd
+  namespace: adguard
+spec:
+  entryPoints:
+    - dns
+  routes:
+    - match: HostSNI(`*`)
+      services:
+      - name: dns-over-https-tcp
+        namespace: adgaurd
+        port: 53

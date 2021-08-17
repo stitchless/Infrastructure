@@ -4,5 +4,5 @@ secretGenerator:
     literals:
       - password=TestingDevPassword
 resources:
-  - 010-Deployment.yaml
-  - 020-Services.yaml
+  - 020-Deployment.yaml
+  - 040-Services.yaml

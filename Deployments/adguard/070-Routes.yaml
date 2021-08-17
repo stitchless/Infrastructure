@@ -1,0 +1,63 @@
+# https://doc.traefik.io/traefik/v2.2/routing/providers/kubernetes-crd/#kind-ingressroute
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: adguard-ingressroute
+  namespace: adguard
+  labels:
+    method: traefik
+    environment: production
+spec:
+  entryPoints:
+    - websecure
+    - dns
+  routes:
+  - match: Host(`dns.nekomade.com`)
+    kind: Rule
+    middlewares:
+    - name: passtls
+      namespace: adguard
+    services:
+    - name: dns-over-https-tcp
+      namespace: adguard
+      kind: Service
+      port: 443
+      scheme: https
+  - match: Host(`dns.nekomade.com`) && PathPrefix(`/dns-query`)
+    kind: Rule
+    middlewares:
+      - name: passtls
+        namespace: adguard
+    services:
+      - name: dns-over-https-tcp
+        namespace: adguard
+        kind: Service
+        port: 3000
+        scheme: https
+  tls:
+    secretName: nekomade-com-tls
+    options:
+      name: ""
+      namespace: adguard
+    certResolver: letsencrypt
+#---
+#apiVersion: traefik.containo.us/v1alpha1
+#kind: IngressRoute
+#metadata:
+#  name: adguard-doh-bootstrap
+#  namespace: adguard
+#spec:
+#  entryPoints:
+#    - web
+#  routes:
+#    - match: Host(`158.69.157.242`) && PathPrefix(`/dns-query`)
+#      kind: Rule
+##      middlewares:
+##        - name: passtls
+##          namespace: adguard
+#      services:
+#        - name: web-ui
+#          namespace: adguard
+#          kind: Service
+#          port: 80
+#          scheme: http

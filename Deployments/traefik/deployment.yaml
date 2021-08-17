@@ -1,0 +1,8 @@
+helm upgrade traefik --values values.yaml traefik/traefik
+
+
+kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) 9000:9000
+
+
+
+Based on: https://blog.devgenius.io/quickstart-with-traefik-v2-on-kubernetes-e6dff0d65216

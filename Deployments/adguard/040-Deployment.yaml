@@ -17,6 +17,7 @@ spec:
       labels:
         app: adguard-server
     spec:
+      dnsPolicy: ClusterFirstWithHostNet
       volumes:
         - name: adguard-data
           persistentVolumeClaim:
@@ -32,14 +33,29 @@ spec:
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
+              name: web-ui
+#              hostIP: 158.69.157.242
             - containerPort: 53
-              protocol: TCP
-            - containerPort: 53
+              name: dns-udp
               protocol: UDP
-            - containerPort: 8443
-              hostPort: 8443
-            - containerPort: 3000
+              hostIP: 158.69.157.242
+            - containerPort: 53
+              name: dns-tcp
               protocol: TCP
+              hostIP: 158.69.157.242
+            - containerPort: 443
+              name: doh-udp
+              protocol: UDP
+              hostIP: 158.69.157.242
+            - containerPort: 443
+              name: doh-tcp
+              protocol: TCP
+              hostIP: 158.69.157.242
+            - containerPort: 3000
+              name: port-3000
+              protocol: TCP
+              hostIP: 158.69.157.242
+              hostPort: 3000
           lifecycle:
             postStart:
               exec:

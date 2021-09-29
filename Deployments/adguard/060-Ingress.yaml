@@ -2,22 +2,22 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: adguard-ingress
-  namespace: adguard
-  annotations:
-    traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+#  namespace: adguard
+#  annotations:
+#    traefik.ingress.kubernetes.io/router.tls: "true"
+#    traefik.ingress.kubernetes.io/router.entrypoints: websecure
 #  annotations:
 #    nginx.ingress.kubernetes.io/auth-tls-secret: adguard/nekomade-com-tls
 #    nginx.ingress.kubernetes.io/auth-tls-verify-client: optional_no_ca
 #    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
 spec:
-  ingressClassName: "traefik-lb"
+#  ingressClassName: "traefik-lb"
   tls:
   - hosts:
-      - dns.nekomade.com
+      - nekomade.com
     secretName: nekomade-com-tls
   rules:
-    - host: dns.nekomade.com
+    - host: nekomade.com
       http:
         paths:
         - path: /dns-query
@@ -26,8 +26,8 @@ spec:
             service:
               name: dns-over-https-tcp
               port:
-                number: 3000
-    - host: dns.nekomade.com
+                number: 443
+    - host: nekomade.com
       http:
         paths:
         - path: /
@@ -36,4 +36,4 @@ spec:
             service:
               name: web-ui
               port:
-                number: 8080
+                number: 443

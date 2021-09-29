@@ -3,7 +3,7 @@
 image:
   name: traefik
   # defaults to appVersion
-  tag: "2.5"
+  tag: "2.5.3"
   pullPolicy: IfNotPresent
 
 #
@@ -77,7 +77,9 @@ pilot:
 # Enable experimental features
 experimental:
   plugins:
-    enabled: false
+    enabled: true
+  http3:
+    enabled: true
   kubernetesGateway:
     enabled: false
     appLabelSelector: "traefik"
@@ -215,7 +217,8 @@ additionalArguments:
   - "--certificatesresolvers.letsencrypt.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
   - "--certificatesResolvers.letsencrypt.acme.dnschallenge=true"
   - "--certificatesResolvers.letsencrypt.acme.dnschallenge.provider=cloudflare"
-#  - "--entryPoints.dns.address=:8553"
+#  - "--entryPoints.websecure.passHostHeader=true"
+  - "--entryPoints.websecure.address=:443"
 #  - "--entryPoints.dns.http.tls.certResolver=letsencrypt"
 #  - "--entryPoints.dns.http.tls.domains[0].main=nekomade.com"
 #  - "--entryPoints.dns.http.tls.domains[0].sans=dns.nekomade.com"
@@ -282,8 +285,8 @@ ports:
     # The port protocol (TCP/UDP)
     protocol: TCP
   web:
-    port: 8000
-    # hostPort: 8000
+    port: 80
+    hostPort: 80
     expose: true
     exposedPort: 80
     # The port protocol (TCP/UDP)
@@ -296,13 +299,14 @@ ports:
     # https://docs.traefik.io/routing/entrypoints/#redirection
     # redirectTo: websecure
   websecure:
-    port: 8443
-    # hostPort: 8443
-    expose: true
-    exposedPort: 443
+    port: 443
+    hostPort: 443
+#    hostIP: 158.69.157.245
+#    expose: true
+#    exposedPort: 443
     # The port protocol (TCP/UDP)
     protocol: TCP
-    # nodePort: 32443
+    # nodePort: 443
     # Set TLS at the entrypoint
     # https://doc.traefik.io/traefik/routing/entrypoints/#tls
     tls:
@@ -327,56 +331,56 @@ ports:
     exposedPort: 9100
     # The port protocol (TCP/UDP)
     protocol: TCP
-  dns:
-    port: 8553
-    hostPort: 53
-    expose: true
-    exposedPort: 53
-    tls:
-      enabled: true
-      options: ""
-      certResolver: letsencrypt
-      domains:
+#  dns:
+#    port: 53
+#    hostPort: 53
+#    expose: true
+#    exposedPort: 53
+#    tls:
+#      enabled: true
+#      options: ""
+#      certResolver: letsencrypt
+#      domains:
+#        - main: nekomade.com
+#          sans:
+#            - dns.nekomade.com
+#  mysql:
+#    port: 30306
+#    hostPort: 3306
+#    tls:
+#      enabled: true
+#      options: ""
+#      certResolver: letsencrypt
+#      domains:
+#        - main: nekomade.com
+#          sans:
+#            - mysql.nekomade.com
+#  postgres:
+#    port: 50432
+#    hostPort: 5432
+#    tls:
+#      enabled: true
+#      options: ""
+#      certResolver: letsencrypt
+#      domains:
+#      - main: nekomade.com
+#        sans:
+#          - postgres.nekomade.com
+    quic:
+      enableHTTP3: ture
+      port: 784
+      expose: true
+      exposedPort: 784
+      protocol: UDP
+      https:
+      tls:
+        enabled: true
+        options: ""
+        certResolver: letsencrypt
+        domains:
         - main: nekomade.com
           sans:
             - dns.nekomade.com
-  mysql:
-    port: 30306
-    hostPort: 3306
-    tls:
-      enabled: true
-      options: ""
-      certResolver: letsencrypt
-      domains:
-        - main: nekomade.com
-          sans:
-            - mysql.nekomade.com
-  postgres:
-    port: 50432
-    hostPort: 5432
-    tls:
-      enabled: true
-      options: ""
-      certResolver: letsencrypt
-      domains:
-      - main: nekomade.com
-        sans:
-          - postgres.nekomade.com
-  #  quic:
-  #    enableHTTP3: ture
-  #    port: 7784
-  #    expose: true
-  #    exposedPort: 784
-  #    protocol: UDP
-  #    https:
-  #    tls:
-  #      enabled: true
-  #      options: ""
-  #      certResolver: letsencrypt
-  #      domains:
-  #      - main: nekomade.com
-  #        sans:
-  #          - dns.nekomade.com
 
 # TLS Options are created as TLSOption CRDs
 # https://doc.traefik.io/traefik/https/tls/#tls-options
@@ -469,7 +473,7 @@ rbac:
 
 # Enable to create a PodSecurityPolicy and assign it to the Service Account via RoleBinding or ClusterRoleBinding
 podSecurityPolicy:
-  enabled: false
+  enabled: true
 
 # The service account the pods will use to interact with the Kubernetes API
 serviceAccount:
@@ -512,13 +516,14 @@ priorityClassName: ""
 securityContext:
   capabilities:
     drop: [ALL]
+    add: [NET_BIND_SERVICE]
   readOnlyRootFilesystem: true
-  runAsGroup: 65532
-  runAsNonRoot: true
-  runAsUser: 65532
+  runAsGroup: 0
+  runAsNonRoot: false
+  runAsUser: 0
 
 podSecurityContext:
-  fsGroup: 65532
+  fsGroup: 0
 
 
 #experimental:

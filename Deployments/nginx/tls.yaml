@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nekomade-com-tls
+type: kubernetes.io/tls
+data:
+  # the data is abbreviated in this example
+  tls.crt: |
+    TUlJQzJEQ0NBY0NnQXdJQkFnSUJBVEFOQmdrcWg=
+  tls.key: |
+    TUlJQzJEQ0NBY0NnQXdJQkFnSUJBVEFOQmdrcWg=

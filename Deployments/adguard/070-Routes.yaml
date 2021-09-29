@@ -10,7 +10,6 @@ metadata:
 spec:
   entryPoints:
     - websecure
-    - dns
   routes:
   - match: Host(`dns.nekomade.com`)
     kind: Rule
@@ -32,7 +31,7 @@ spec:
       - name: dns-over-https-tcp
         namespace: adguard
         kind: Service
-        port: 3000
+        port: 443
         scheme: https
   tls:
     secretName: nekomade-com-tls
@@ -40,24 +39,28 @@ spec:
       name: ""
       namespace: adguard
     certResolver: letsencrypt
-#---
-#apiVersion: traefik.containo.us/v1alpha1
-#kind: IngressRoute
-#metadata:
-#  name: adguard-doh-bootstrap
-#  namespace: adguard
-#spec:
-#  entryPoints:
-#    - web
-#  routes:
-#    - match: Host(`158.69.157.242`) && PathPrefix(`/dns-query`)
-#      kind: Rule
-##      middlewares:
-##        - name: passtls
-##          namespace: adguard
-#      services:
-#        - name: web-ui
-#          namespace: adguard
-#          kind: Service
-#          port: 80
-#          scheme: http
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: adguard-ingressroute
+  namespace: adguard
+  labels:
+    method: traefik
+    environment: production
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: HostSNI(`dns.nekomade.com`)
+      services:
+        - name: dns-over-https-tcp
+          namespace: adguard
+          port: 443
+  tls:
+    passthrough: true
+    secretName: nekomade-com-tls
+    options:
+      name: ""
+      namespace: adguard
+    certResolver: letsencrypt

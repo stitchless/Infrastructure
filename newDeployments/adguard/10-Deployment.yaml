@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard-server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: adguard-server
+  template:
+    metadata:
+      labels:
+        app: adguard-server
+    spec:
+      volumes:
+        - name: adguard-data
+          persistentVolumeClaim:
+            claimName: adguard-volume-claim
+        - name: cloudflare-root-ca
+          configMap:
+            name: cloudflare-root-ca.crt
+            defaultMode: 256
+            optional: false
+      containers:
+        - name: adguard-server
+          image: adguard/adguardhome:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 53
+            - containerPort: 80
+            - containerPort: 443
+            - containerPort: 3000
+            - containerPort: 784
+          lifecycle:
+            postStart:
+              exec:
+                command: [ "/bin/sh", "-c", "cd /etc/ssl/certs && cat origin_ca_rsa_root.pem >> ca-certificates.crt" ]
+          volumeMounts:
+            - name: cloudflare-root-ca
+              subPath: origin_ca_rsa_root.pem
+              mountPath: /etc/ssl/certs/origin_ca_rsa_root.pem
+            - name: adguard-data
+              subPath: work
+              mountPath: /opt/adguardhome/work
+            - name: adguard-data
+              subPath: conf
+              mountPath: /opt/adguardhome/conf

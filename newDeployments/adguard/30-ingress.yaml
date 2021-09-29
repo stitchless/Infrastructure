@@ -1,0 +1,70 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: adguard-ingress
+  annotations:
+#    nginx.ingress.kubernetes.io/auth-tls-secret: nekomade-com-tls
+#    nginx.ingress.kubernetes.io/auth-tls-verify-client: optional_no_ca
+    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
+spec:
+  tls:
+    - hosts:
+        - nekomade.com
+      secretName: nekomade-com-tls
+  rules:
+    - host: nekomade.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: adguard-service
+                port:
+                  name: adguard-install
+    - host: nekomade.com
+      http:
+        paths:
+          - path: /dns-query
+            pathType: Prefix
+            backend:
+              service:
+                name: adguard-service
+                port:
+                  name: adguard-https
+#---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: adguard-ingress
+#  annotations:
+#    #    nginx.ingress.kubernetes.io/auth-tls-secret: nekomade-com-tls
+#    #    nginx.ingress.kubernetes.io/auth-tls-verify-client: optional_no_ca
+#    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
+#spec:
+#
+#  tls:
+#    - hosts:
+#        - do.nekomade.com
+#      secretName: nekomade-com-tls
+#  rules:
+#    - host: do.nekomade.com
+#      http:
+#        paths:
+#          - path: /
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: adguard-service-tcp
+#                port:
+#                  name: adguard
+#    - host: nekomade.com
+#      http:
+#        paths:
+#          - path: /
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: adguard-service
+#                port:
+#                  name: adguard-secure

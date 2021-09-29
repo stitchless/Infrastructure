@@ -1,0 +1,314 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adguard-config
+data:
+  AdGuardHome.yaml: |-
+    bind_host: 0.0.0.0
+    bind_port: 80
+    beta_bind_port: 0
+    users:
+    - name: stitchless
+      password: $2a$10$.Wi5Pzcox2XUK3QsybvjsOp8/TMMpJEdq1VXkdn1SmvW7onfYOxOy
+    auth_attempts: 5
+    block_auth_min: 15
+    http_proxy: ""
+    language: ""
+    rlimit_nofile: 0
+    debug_pprof: false
+    web_session_ttl: 720
+    dns:
+      bind_hosts:
+      - 0.0.0.0
+      port: 53
+      statistics_interval: 7
+      querylog_enabled: true
+      querylog_file_enabled: true
+      querylog_interval: 1
+      querylog_size_memory: 1000
+      anonymize_client_ip: false
+      protection_enabled: true
+      blocking_mode: refused
+      blocking_ipv4: ""
+      blocking_ipv6: ""
+      blocked_response_ttl: 10
+      parental_block_host: family-block.dns.adguard.com
+      safebrowsing_block_host: standard-block.dns.adguard.com
+      ratelimit: 20
+      ratelimit_whitelist: []
+      refuse_any: true
+      upstream_dns:
+      - https://dns.quad9.net/dns-query
+      - https://dns-unfiltered.adguard.com/dns-query
+      upstream_dns_file: ""
+      bootstrap_dns:
+      - 9.9.9.10
+      - 149.112.112.10
+      - 1.1.1.1
+      all_servers: false
+      fastest_addr: false
+      allowed_clients:
+      - 108.18.236.245
+      disallowed_clients: []
+      blocked_hosts:
+      - version.bind
+      - id.server
+      - hostname.bind
+      cache_size: 4194304
+      cache_ttl_min: 0
+      cache_ttl_max: 0
+      bogus_nxdomain: []
+      aaaa_disabled: false
+      enable_dnssec: true
+      edns_client_subnet: true
+      max_goroutines: 300
+      ipset: []
+      filtering_enabled: true
+      filters_update_interval: 12
+      parental_enabled: false
+      safesearch_enabled: false
+      safebrowsing_enabled: false
+      safebrowsing_cache_size: 1048576
+      safesearch_cache_size: 1048576
+      parental_cache_size: 1048576
+      cache_time: 30
+      rewrites: []
+      blocked_services:
+      - whatsapp
+      - wechat
+      - viber
+      - tinder
+      - skype
+      - pinterest
+      - instagram
+      - ok
+      - qq
+      - snapchat
+      - telegram
+      - weibo
+      - vk
+      - mail_ru
+      - dailymotion
+      - 9gag
+      - facebook
+      local_domain_name: lan
+      resolve_clients: true
+      local_ptr_upstreams: []
+    tls:
+      enabled: true
+      server_name: dns.nekomade.com
+      force_https: true
+      port_https: 443
+      port_dns_over_tls: 853
+      port_dns_over_quic: 784
+      port_dnscrypt: 0
+      dnscrypt_config_file: ""
+      allow_unencrypted_doh: false
+      strict_sni_check: false
+      certificate_chain: |-
+        -----BEGIN CERTIFICATE-----
+        MIIEpDCCA4ygAwIBAgIUdykMLvD6s8SlIuJHud1HYNjiIFAwDQYJKoZIhvcNAQEL
+        BQAwgYsxCzAJBgNVBAYTAlVTMRkwFwYDVQQKExBDbG91ZEZsYXJlLCBJbmMuMTQw
+        MgYDVQQLEytDbG91ZEZsYXJlIE9yaWdpbiBTU0wgQ2VydGlmaWNhdGUgQXV0aG9y
+        aXR5MRYwFAYDVQQHEw1TYW4gRnJhbmNpc2NvMRMwEQYDVQQIEwpDYWxpZm9ybmlh
+        MB4XDTIxMDcyNzIxMzgwMFoXDTM2MDcyMzIxMzgwMFowYjEZMBcGA1UEChMQQ2xv
+        dWRGbGFyZSwgSW5jLjEdMBsGA1UECxMUQ2xvdWRGbGFyZSBPcmlnaW4gQ0ExJjAk
+        BgNVBAMTHUNsb3VkRmxhcmUgT3JpZ2luIENlcnRpZmljYXRlMIIBIjANBgkqhkiG
+        9w0BAQEFAAOCAQ8AMIIBCgKCAQEA9C02b8jwTz7Qo/1CUU6PGAPkMRO+MabVhlsB
+        017xTo14cbm5sSH0m6fa42jtUgPKiXlet5h93JlQ1aReB0Cm9OfM/TNed4FKfMEl
+        z+NP1FYmSJSZzSGRvVM7GJDE37+cueiIdFaX/+L8Zw1ApgLIB0x4ZcWnW9PZp4nd
+        RHes00qiC5W4U7iqYcMkpMmsBUrp67yzCf8GYc5GW69j1qoP+a2e6wSNKTjUmO/7
+        RJqz3U19G2qwKYoMQSm2fkgVk3h0ca7ikyluCgZQIJr8RWv/k/xEAyI/D5/UMFYO
+        JV29ugCxWEXVEd6LFucXZ40Ahk10ja+SqIryIZPXyiBk04clRQIDAQABo4IBJjCC
+        ASIwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEFBQcD
+        ATAMBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBTLQh1rxpaRSknUv174YFEuHuIN2DAf
+        BgNVHSMEGDAWgBQk6FNXXXw0QIep65TbuuEWePwppDBABggrBgEFBQcBAQQ0MDIw
+        MAYIKwYBBQUHMAGGJGh0dHA6Ly9vY3NwLmNsb3VkZmxhcmUuY29tL29yaWdpbl9j
+        YTAnBgNVHREEIDAegg4qLm5la29tYWRlLmNvbYIMbmVrb21hZGUuY29tMDgGA1Ud
+        HwQxMC8wLaAroCmGJ2h0dHA6Ly9jcmwuY2xvdWRmbGFyZS5jb20vb3JpZ2luX2Nh
+        LmNybDANBgkqhkiG9w0BAQsFAAOCAQEAVw9SOy8IHgcR+zSKfrk9uL0vGd7aTuSu
+        kXqeH6dKDdHtS4rlh4yeZMsZL5iEFO+zr9fz+DrA3TgzeuVM6LRT2KY6pRPL7tCT
+        CyQzHnoWGjuHacN9s/+hs/Nxmsa5H2dHyiQirOeVqEl6+LycpkvWVtWIWZdBnERF
+        GrpftxZf7UIdBKIV482UQfVUsZ/XYdSukdIXM/Ryo+0gwzUS3yuHy0MebJJbxQI5
+        PiTdWLRyQEBzJddcUzpJkjW7lybwndEAZF/a7QNQMGkb4E1PyhK7fozmN+03CL9V
+        lnVzVL+rb8lmcMu9WH51FZGRLLy6Eq7OJVNgeI7eSZHjVUJJ5HEOVA==
+        -----END CERTIFICATE-----
+      private_key: |-
+      -----BEGIN PRIVATE KEY-----
+      MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQD0LTZvyPBPPtCj
+      /UJRTo8YA+QxE74xptWGWwHTXvFOjXhxubmxIfSbp9rjaO1SA8qJeV63mH3cmVDV
+      pF4HQKb058z9M153gUp8wSXP40/UViZIlJnNIZG9UzsYkMTfv5y56Ih0Vpf/4vxn
+      DUCmAsgHTHhlxadb09mnid1Ed6zTSqILlbhTuKphwySkyawFSunrvLMJ/wZhzkZb
+      r2PWqg/5rZ7rBI0pONSY7/tEmrPdTX0barApigxBKbZ+SBWTeHRxruKTKW4KBlAg
+      mvxFa/+T/EQDIj8Pn9QwVg4lXb26ALFYRdUR3osW5xdnjQCGTXSNr5KoivIhk9fK
+      IGTThyVFAgMBAAECggEAWwZLx8pBg1koUCnGQicmAs7Yj08L1NibutVMTe6TyDPG
+      1aZlydmdpTUizSm9ZpiRNURwgcKwEL96udnnT47TbnLHIRC4Q5aIHQ+nt+LGTKK8
+      7Muwth6whMJ1QkgdjEeS9l7wF2Z8jWChtQzkr75TsRzZuR7Ar+O+vM0RFkgCvlTW
+      voeikFEaShYtiPoJ2AGjFKAbnMMatsdJSD177s9UuvB5nns4JuSpH2AfAWnw7anU
+      JEAN8vqRPTFlUT2RhghuCwSId2EBPvXF5aLcAVZ8tIa5Nz68e7YL0TH86Ri29uze
+      nM94+emUiNniC57nP1xL5nGOio/YXxoQ4aJR3U0StQKBgQD8x51hGwdp/nsc3vt7
+      Mc1UQG7DIq7YbdineUZVwdYidxLy1ZDgx0r98AhEbOkAXQg6FrvKjO/QcCYd9a8f
+      gFsa34gAxkSpYrVr2BoBKcF1OiIluPuBLIXXpvRwOn2/NI6RUdyVLkQRVrgseMaf
+      FR27F0FQ0WEEu2q1wnHfhjHs/wKBgQD3SYpo7jxY3RQU/APfuN7C4Y9iHtd5CFcR
+      6WmWbKUy0pLpimS8IWo6f5tafXGG/hlLzGayskbtaI7MF3EFCsjkeBX5o81ybeIX
+      +tRPQj4pNGsZ9l2m4dP8EAV/1TWaVGiADaPxG5WLx5kAxmw8Tbi1AGK90hvtxDCo
+      Gv3RE3X5uwKBgQClQGomfWEPbgpWCYAmPZyaI7VFZHshik5EzgepMJso1OdSUUPx
+      btgbwrvk375DOo6SSyJhfFmaznZcx6zAz0y/+LoUp4ljouAvrIrzj7SlSmfgeVoS
+      TGUDYmYSqGpkgZtibT3jWOeu3h5xFFPk1A0nrkBI8ViXm15bjM6c7kHdSQKBgQCi
+      qid32q6rrdGV9CkAM3WlMAbHfo4yuX+88pNYNeN9SPMG2NhmwHxGOsaQgc/6Ao/V
+      QoGTrp3lcU/thMX9kRiQ4UVjT5LHYOzG5WJfOK33INoK2/rC2e498rQLYM6/1CJh
+      iZd79K8soYFN9zgfeuizd6t8PgfNIa74BblMnMaQHQKBgQClvXGey4IJJqTQhraQ
+      LnuUaDdsjnpVmOwjrde3PzMZDnde047TmHU4C424qlZWDu6svISyr0+/MRthyHd9
+      ZgeVXulHpoaY7APx+J3CUtQFsXMEXLH0+Ba+IJ8OyjPloMJGOCKhkD/acPau7JE2
+      uvgLDQc2EtvfV/2NBe6/tQr53A==
+      -----END PRIVATE KEY-----
+      certificate_path: ""
+      private_key_path: ""
+    filters:
+    - enabled: true
+      url: https://raw.githubusercontent.com/hl2guide/Filterlist-for-AdGuard-or-PiHole/master/Blocklist/filter_blocklist1.txt
+      name: Filter List 1
+      id: 1627425005
+    - enabled: true
+      url: https://raw.githubusercontent.com/hl2guide/Filterlist-for-AdGuard-or-PiHole/master/Blocklist/filter_blocklist2.txt
+      name: Filter List 2
+      id: 1627425006
+    - enabled: true
+      url: https://raw.githubusercontent.com/hl2guide/Filterlist-for-AdGuard-or-PiHole/master/Blocklist/filter_blocklist3.txt
+      name: Filter List 3
+      id: 1627425007
+    - enabled: true
+      url: https://raw.githubusercontent.com/hl2guide/Filterlist-for-AdGuard-or-PiHole/master/Blocklist/filter_blocklist4.txt
+      name: Filter List 4
+      id: 1627425008
+    whitelist_filters:
+    - enabled: true
+      url: https://raw.githubusercontent.com/hl2guide/Filterlist-for-AdGuard-or-PiHole/master/Whitelist-Modules/whitelist_for_github.txt
+      name: Github
+      id: 1627685357
+    - enabled: true
+      url: https://raw.githubusercontent.com/hl2guide/Filterlist-for-AdGuard-or-PiHole/master/Whitelist-Modules/whitelist_for_steam.txt
+      name: Steam
+      id: 1627685358
+    - enabled: true
+      url: https://raw.githubusercontent.com/hl2guide/Filterlist-for-AdGuard-or-PiHole/master/Whitelist-Modules/whitelist_for_microsoft_office_365.txt
+      name: Office 365
+      id: 1627685359
+    - enabled: true
+      url: https://raw.githubusercontent.com/hl2guide/Filterlist-for-AdGuard-or-PiHole/master/Whitelist-Modules/whitelist_for_hulu.txt
+      name: Hulu
+      id: 1627685360
+    - enabled: true
+      url: https://raw.githubusercontent.com/hl2guide/Filterlist-for-AdGuard-or-PiHole/master/Whitelist-Modules/whitelist_for_epic_games.txt
+      name: Epic Games
+      id: 1627685361
+    - enabled: true
+      url: https://raw.githubusercontent.com/hl2guide/Filterlist-for-AdGuard-or-PiHole/master/Whitelist-Modules/whitelist_for_discord.txt
+      name: Discord
+      id: 1627685362
+    user_rules:
+    - '###### Allowed List Personal'
+    - '# Apple'
+    - '@@||gsp64-ssl.ls.apple.com^$important'
+    - '@@||updates.cdn-apple.com^$important'
+    - '@@||support.apple.com^$important'
+    - '@@||setup.icloud.com^$important'
+    - '# Services'
+    - '@@||www.odrive.com^$important'
+    - '@@||f002.backblazeb2.com^$important'
+    - '@@spclient.wg.spotify.com^'
+    - '@@||nyaa.si^$important'
+    - '@@||nyaa.net^$important'
+    - '@@||pkg.go.dev^$important'
+    - '# Social'
+    - '@@||www.youtube.com^$important'
+    - '@@||e.reddit.com^$important'
+    - '@@||gql.reddit.com^$important'
+    - '# Porn'
+    - '@@||e621.net^$important'
+    - '@@||nhentai.net^$important'
+    - '######'
+    - '###### Allowed List Professional'
+    - '@@||nemetschek.net^'
+    - '######'
+    - '###### F''em'
+    - '||foxnews.com^'
+    - '######'
+    - '###### Windows services'
+    - '@@slscr.update.microsoft.com^$important'
+    - '@@settings-win.data.microsoft.com^$important'
+    - '@@ctldl.windowsupdate.com^$important'
+    - '@@client.wns.windows.com^$important'
+    - '@@download.windowsupdate.com^$important'
+    - '@@fe3cr.delivery.mp.microsoft.com^$important'
+    - '@@geover.prod.do.dsp.mp.microsoft.com^$important'
+    - '@@||time.windows.com^$important'
+    - '######'
+    - '###### VERSIZON'
+    - '||myfiosgateway.com^$important'
+    - '###### END'
+    - '## Un-sorted'
+    - '@@||apple.com^$important'
+    - '@@||xp.apple.com^$important'
+    - '@@||iosapps.itunes.apple.com^$important'
+    - '@@||p34-fmf.icloud.com^$important'
+    - '@@||gs-loc.apple.com^$important'
+    - '@@||id.maxon.net^$important'
+    - '@@||cdn.discordapp.com^$important'
+    - '@@||imgur.com^$important'
+    - '@@||www.pornhub.com^$important'
+    - '@@||cdn1-smallimg.phncdn.com^$important'
+    - '@@||hubt.pornhub.com^$important'
+    - '@@||cdn1d-static-shared.phncdn.com^$important'
+    - '@@||alive.github.com^$important'
+    - '@@||conviva.com^$important'
+    - '@@||col.eum-appdynamics.com^$important'
+    - '@@||linode.com^$important'
+    - '@@||web.vortex.data.microsoft.com^$important'
+    - '@@||update.googleapis.com^$important'
+    - '@@||dl.delivery.mp.microsoft.com^$important'
+    - '@@||medium.com^$important'
+    - '@@||assets.adobedtm.com^$important'
+    - '@@||awuse1.advanced-web-analytics.com^$important'
+    - '@@||outlook.office.com^$important'
+    - '@@||www.vanderhagen.com^$important'
+    - '@@||ethadepic.club^$important'
+    - '@@||nodejs.org^$important'
+    - '@@||tonymoly.us^$important'
+    - '||safebrowsing.googleapis.com^$important'
+    - '@@||teams.events.data.microsoft.com^$important'
+    - '@@||substrate.office.com^$important'
+    - '@@||store.ui.com^$important'
+    - '@@||officecdn.microsoft.com.edgesuite.net^$important'
+    - '@@||config.edge.skype.com^$important'
+    - '@@||msedge.api.cdp.microsoft.com^$important'
+    - '@@||s3.amazonaws.com^$important'
+    - '@@||prettier.io^$important'
+    - '@@||sass-guidelin.es^$important'
+    - '@@||roogen.com^$important'
+    - ""
+    dhcp:
+      enabled: false
+      interface_name: ""
+      dhcpv4:
+        gateway_ip: ""
+        subnet_mask: ""
+        range_start: ""
+        range_end: ""
+        lease_duration: 86400
+        icmp_timeout_msec: 1000
+        options: []
+      dhcpv6:
+        range_start: ""
+        lease_duration: 86400
+        ra_slaac_only: false
+        ra_allow_slaac: false
+    clients: []
+    log_compress: false
+    log_localtime: false
+    log_max_backups: 0
+    log_max_size: 100
+    log_max_age: 3
+    log_file: ""
+    verbose: false
+    schema_version: 10

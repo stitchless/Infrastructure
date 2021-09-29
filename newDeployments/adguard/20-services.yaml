@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: adguard-service
+spec:
+  type: LoadBalancer
+  ports:
+    - name: adguard-https
+      port: 443
+      targetPort: 443
+    - name: adguard-http
+      port: 80
+      targetPort: 80
+    - name: adguard-install
+      port: 3000
+      targetPort: 3000
+  selector:
+    app: adguard-server
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: adguard-service-secure
+#spec:
+#  type: LoadBalancer
+#  ports:
+#    - name: adguard-secure
+#      port: 443
+#      targetPort: 443
+#  selector:
+#    app: adguard-server

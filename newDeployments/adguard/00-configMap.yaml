@@ -1,8 +1,8 @@
+# Config to add cloudflare to os certs
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cloudflare-root-ca.crt
-#  namespace: adguard
 data:
   origin_ca_rsa_root.pem: |-
     -----BEGIN CERTIFICATE-----
